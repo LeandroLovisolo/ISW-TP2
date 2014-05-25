@@ -8,4 +8,4 @@ clean:
 informe.pdf: tex/informe.tex tex/*.jpg tex/*.png
 	cd tex; pdflatex -interaction=nonstopmode -halt-on-error informe.tex && \
 	        pdflatex -interaction=nonstopmode -halt-on-error informe.tex
-	cp tex/informe.pdf .
+	mv tex/informe.pdf .
