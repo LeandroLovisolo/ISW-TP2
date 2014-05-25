@@ -17,6 +17,7 @@
 \usepackage{multirow}
 \usepackage{hyperref}
 \usepackage{multicol}
+\usepackage{pbox}
 \usepackage[toc, page]{appendix}
 
 
@@ -147,7 +148,7 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 
 \newenvironment{usecase}
   {
-    \begin{tabular}{|l|p{5cm}|}
+    \begin{tabular}{|l|l|}
     \hline
     Curso normal & Curso alternativo \\
     \hline
@@ -159,21 +160,20 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 
 \newcommand\ucitem[2]{
 	\stepcounter{usecasecounter}
-	\arabic{usecasecounter}. #1 & #2 \\
+	\arabic{usecasecounter}. #1 & \pbox{5cm}{#2} \\
 	\hline
 }
 
-\newcommand\ucalt[1]{
-	\stepcounter{usecasealtcounter}
-	\arabic{usecasecounter}.\arabic{usecasealtcounter}. #1
-}
+\newcommand\ucalt[1]{\stepcounter{usecasealtcounter}\arabic{usecasecounter}.\arabic{usecasealtcounter}. #1}
 
 
 
 
 \begin{usecase}
   \ucitem{Estudiar computación.}
-         {\ucalt{Dedicarse a bellas artes.}
+         {\ucalt{Dedicarse a bellas artes.} \\
+          \ucalt{Morirse de hambre.} \\
+          \ucalt{Morirse de hambre.} \\
           \ucalt{Morirse de hambre.}}
   \ucitem{Resolver $P=NP$.}
          {\ucalt{Trabajar en otro problema.}}
