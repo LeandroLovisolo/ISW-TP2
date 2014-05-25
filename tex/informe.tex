@@ -141,6 +141,53 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 
 \section{Introducción}
 
+
+\newcounter{usecasecounter}
+\newcounter{usecasealtcounter}[usecasecounter]
+
+\newenvironment{usecase}
+  {
+    \begin{tabular}{|l|l|}
+    \hline
+    Curso normal & Curso alternativo \\
+    \hline
+    \setcounter{usecasecounter}{0}
+  }{
+    \hline
+    \end{tabular}
+  }
+
+\newcommand\ucitem[2]{
+	\stepcounter{usecasecounter}
+	\arabic{usecasecounter}. #1 & #2 \\
+}
+
+\newcommand\ucalt[1]{
+	\stepcounter{usecasealtcounter}
+	\arabic{usecasecounter}.\arabic{usecasealtcounter}. #1
+}
+
+\begin{usecase}
+  \ucitem{Estudiar computación.}
+         {\ucalt{Dedicarse a bellas artes.}
+          \ucalt{Morirse de hambre.}}
+  \ucitem{Resolver $P=NP$.}
+         {\ucalt{Trabajar en otro problema.}}
+  \ucitem{Recibir premio Turing.}{}
+\end{usecase}
+
+\begin{usecase}
+  \ucitem{Otro caso de uso.}
+         {\ucalt{Otro curso alternativo.}}
+\end{usecase}
+
+
+
+
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Desarrollo                                                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -148,9 +195,11 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 
 \section{Desarrollo}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Casos de uso                                                              %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \section{Casos de uso}
 
