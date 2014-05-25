@@ -147,25 +147,29 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 
 \newenvironment{usecase}
   {
-    \begin{tabular}{|l|l|}
+    \begin{tabular}{|l|p{5cm}|}
     \hline
     Curso normal & Curso alternativo \\
     \hline
+    \hline
     \setcounter{usecasecounter}{0}
   }{
-    \hline
     \end{tabular}
   }
 
 \newcommand\ucitem[2]{
 	\stepcounter{usecasecounter}
 	\arabic{usecasecounter}. #1 & #2 \\
+	\hline
 }
 
 \newcommand\ucalt[1]{
 	\stepcounter{usecasealtcounter}
 	\arabic{usecasecounter}.\arabic{usecasealtcounter}. #1
 }
+
+
+
 
 \begin{usecase}
   \ucitem{Estudiar computación.}
@@ -176,12 +180,14 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
   \ucitem{Recibir premio Turing.}{}
 \end{usecase}
 
+\vspace{5cm}
+
 \begin{usecase}
   \ucitem{Otro caso de uso.}
          {\ucalt{Otro curso alternativo.}}
 \end{usecase}
 
-
+\vspace{2cm}
 
 
 
