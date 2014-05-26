@@ -226,8 +226,6 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 
 \section{Casos de uso}
 
-\subsection{Registrando retiro de bicicleta}
-
 \textbf{Caso de uso:} Registrando retiro de bicicleta
 
 \textbf{Pre:} True
@@ -251,8 +249,55 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 	\hline
 \end{tabular}
 
+%%%{Registrando devolución de bicicleta}
+\begin{usecase}
+  \ucname{Registrando devolución de bicicleta}
+  \ucpre{El usuario había retirado una bicicleta}
+  \ucpost{Se registra la devolución de la bicicleta entregada}
+  \ucactor{Personal de la estación}
+\end{usecase}
+\begin{usecasesteps}
+  \ucstep{El personal de la estación ingresa el número de DNI del usuario que devuelve la bicicleta.}{}
+  \ucstep{El personal de la estación ingresa el ID de la bicicleta devuelta y el estado de la misma.}{}
+  \ucstep{El sistema valida que el usuario que entregó la bicicleta sea el mismo que la retiró, que no haya usado la bicicleta más de una hora y que la bicicleta devuelta no esté en mal estado.}{}
+  \ucstep{Si la bicicleta está en mal estado, se penaliza al usuario, o si el usuario que la devolvió no es el que la retiró, el sistema aplica penalizaciones (extiende caso de uso penalizando usuario) e informa en pantalla el motivo de la penalización.}{}
+  \ucstep{El sistema registra la devolución de la bicicleta, aumenta el stock y muestra que la devolución se realizó correctamente.}{}
+  \ucstep{Fin caso de uso.}{}
+\end{usecasesteps}
 
-\subsection{Registrando devolución de bicicleta}
+%%%{Registrando cuenta}
+\begin{usecase}
+  \ucpre{True}
+  \ucpost{El usuario está registrado y autenticado en el sistema}
+  \ucname{Registrando cuenta}
+  \ucactor{Usuario}
+\end{usecase}
+\begin{usecasesteps}
+  \ucstep{El usuario ingresa su número de DNI, email, nombre y contraseña.}{}
+  \ucstep{El sistema verifica que no esté registrado otro usuario con el email o DNI ingresado.}{}
+  \ucstep{El sistema guarda los datos ingresados.}{Si los datos ingresados ya existían, mostrar que no es posible realizar el registro, y volver a 1.}
+  \ucstep{El sistema muestra al usuario que el registro se realizó correctamente.}{}
+  \ucstep{El sistema autentica al usuario.}{}
+  \ucstep{Si lo desea, el usuario puede clickear un enlace para consultar sus multas pendientes. EXTIENDE CU Consultando multas pendientes.}{}
+  \ucstep{Fin caso de uso.}{}
+\end{usecasesteps}
+
+%%%{Autenticándose}
+\begin{usecase}
+  \ucpre{True}
+  \ucpost{El usuario está autenticado en el sistema}
+  \ucname{Autenticándose}
+  \ucactor{Usuario}
+\end{usecase}
+\begin{usecasesteps}
+  \ucstep{El usuario ingresa su número de DNI y su contraseña.}{}
+  \ucstep{El sistema verifica que el usuario exista y que los datos ingresados sean correctos.}{}
+  \ucstep{El sistema muestra al usuario que la autenticación fue satisfactoria.}{}
+  \ucstep{Si lo desea, el usuario puede clickear un enlace para consultar sus multas pendientes. EXTIENDE CU Consultando multas pendientes.}{}
+  \ucstep{Fin caso de uso.}{}
+\end{usecasesteps}
+
+%%%{Consultando disponibilidad de bicicletas}
 \begin{usecase}
   \ucpre{}
   \ucpost{}
@@ -265,7 +310,7 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
   \ucstep{}{}
 \end{usecasesteps}
 
-\subsection{Registrando cuenta}
+%%%{Consultando multas pendientes}
 \begin{usecase}
   \ucpre{}
   \ucpost{}
@@ -278,7 +323,7 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
   \ucstep{}{}
 \end{usecasesteps}
 
-\subsection{Autenticándose}
+%%%{Registrando nuevas bicicletas}
 \begin{usecase}
   \ucpre{}
   \ucpost{}
@@ -291,7 +336,7 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
   \ucstep{}{}
 \end{usecasesteps}
 
-\subsection{Consultando disponibilidad de bicicletas}
+%%%{Eliminando bicicleta}
 \begin{usecase}
   \ucpre{}
   \ucpost{}
@@ -304,7 +349,7 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
   \ucstep{}{}
 \end{usecasesteps}
 
-\subsection{Consultando multas pendientes}
+%%%{Registrando nueva estación}
 \begin{usecase}
   \ucpre{}
   \ucpost{}
@@ -317,7 +362,7 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
   \ucstep{}{}
 \end{usecasesteps}
 
-\subsection{Registrando nuevas bicicletas}
+%%%{Registrando pago de multa}
 \begin{usecase}
   \ucpre{}
   \ucpost{}
@@ -330,7 +375,7 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
   \ucstep{}{}
 \end{usecasesteps}
 
-\subsection{Eliminando bicicleta}
+%%%{Consultando monto a pagar para un DNI}
 \begin{usecase}
   \ucpre{}
   \ucpost{}
@@ -343,7 +388,7 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
   \ucstep{}{}
 \end{usecasesteps}
 
-\subsection{Registrando nueva estación}
+%%%{Registrando bicicletas recibidas de la empresa de transporte}
 \begin{usecase}
   \ucpre{}
   \ucpost{}
@@ -356,7 +401,7 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
   \ucstep{}{}
 \end{usecasesteps}
 
-\subsection{Registrando pago de multa}
+%%%{Registrando bicicletas retiradas por la empresa de transporte}
 \begin{usecase}
   \ucpre{}
   \ucpost{}
@@ -369,46 +414,7 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
   \ucstep{}{}
 \end{usecasesteps}
 
-\subsection{Consultando monto a pagar para un DNI}
-\begin{usecase}
-  \ucpre{}
-  \ucpost{}
-  \ucname{}
-  \ucactor{}
-\end{usecase}
-\begin{usecasesteps}
-  \ucstep{}{}
-  \ucstep{}{}
-  \ucstep{}{}
-\end{usecasesteps}
-
-\subsection{Registrando bicicletas recibidas de la empresa de transporte}
-\begin{usecase}
-  \ucpre{}
-  \ucpost{}
-  \ucname{}
-  \ucactor{}
-\end{usecase}
-\begin{usecasesteps}
-  \ucstep{}{}
-  \ucstep{}{}
-  \ucstep{}{}
-\end{usecasesteps}
-
-\subsection{Registrando bicicletas retiradas por la empresa de transporte}
-\begin{usecase}
-  \ucpre{}
-  \ucpost{}
-  \ucname{}
-  \ucactor{}
-\end{usecase}
-\begin{usecasesteps}
-  \ucstep{}{}
-  \ucstep{}{}
-  \ucstep{}{}
-\end{usecasesteps}
-
-\subsection{Generando mail de instrucciones para movilización de bicicletas}
+%%%{Generando mail de instrucciones para movilización de bicicletas}
 \begin{usecase}
   \ucpre{}
   \ucpost{}
