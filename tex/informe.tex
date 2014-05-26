@@ -68,6 +68,65 @@
 }
 %%%%%%%%%% Insertar diagrama - Fin %%%%%%%%%%
 
+
+%%%%%%%%%% Macros para Casos de Uso - Inicio %%%%%%%%%%
+\newcounter{usecasecounter}
+\newcounter{usecasealtcounter}
+
+\newcommand{\ucname}[1]{\renewcommand{\givenucname}{#1}}
+\newcommand{\ucpre}[1]{\renewcommand{\givenucpre}{#1}}
+\newcommand{\ucpost}[1]{\renewcommand{\givenucpost}{#1}}
+\newcommand{\ucactor}[1]{\renewcommand{\givenucactor}{#1}}
+\newcommand{\givenucname}{REQUIRED!}
+\newcommand{\givenucpre}{REQUIRED!}
+\newcommand{\givenucpost}{REQUIRED!}
+\newcommand{\givenucactor}{REQUIRED!}
+
+\newenvironment{usecase}
+  {}{
+    \textbf{Caso de uso: }\givenucname \\
+    \textbf{Pre: }\givenucpre \\
+    \textbf{Post: }\givenucpost \\
+    \textbf{Actores: }\givenucactor
+  }
+
+\newenvironment{usecasesteps}
+  {
+    \setcounter{usecasecounter}{0}
+    \setcounter{usecasealtcounter}{0}
+
+    \tabularx{\textwidth}{|l|X|}
+    \hline
+    Curso normal & Curso alternativo \\
+    \hline
+    \hline
+  }{
+    \endtabularx
+    \vspace{\parskip}
+  }
+
+\newcommand{\ucstep}[2]{
+  \stepcounter{usecasecounter}%
+  \pbox[t]{7.5cm}{
+    \makebox[2ex][l]{\arabic{usecasecounter}.}
+    #1\phantom{p}
+  }
+  &
+  \pbox[t]{7.5cm}{
+    \setcounter{usecasealtcounter}{0}
+    #2\phantom{p}
+  } \\
+  \hline
+}
+
+\newcommand{\ucalt}[1]{
+  \stepcounter{usecasealtcounter}
+  \makebox[4ex][l]{\arabic{usecasecounter}.\arabic{usecasealtcounter}.}
+  #1
+}
+%%%%%%%%%% Macros para Casos de Uso - Fin %%%%%%%%%%
+
+
 \begin{document}
 
 
@@ -143,74 +202,6 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 \section{Introducción}
 
 
-\newcounter{usecasecounter}
-\newcounter{usecasealtcounter}
-
-\newcommand{\ucname}[1]{\renewcommand{\givenucname}{#1}}
-\newcommand{\ucpre}[1]{\renewcommand{\givenucpre}{#1}}
-\newcommand{\ucpost}[1]{\renewcommand{\givenucpost}{#1}}
-\newcommand{\ucactor}[1]{\renewcommand{\givenucactor}{#1}}
-\newcommand{\givenucname}{REQUIRED!}
-\newcommand{\givenucpre}{REQUIRED!}
-\newcommand{\givenucpost}{REQUIRED!}
-\newcommand{\givenucactor}{REQUIRED!}
-
-\newenvironment{usecase}
-  {}{
-    \textbf{Caso de uso: }\givenucname \\
-    \textbf{Pre: }\givenucpre \\
-    \textbf{Post: }\givenucpost \\
-    \textbf{Actores: }\givenucactor
-  }
-
-\newenvironment{usecasesteps}
-  {
-    \setcounter{usecasecounter}{0}
-    \setcounter{usecasealtcounter}{0}
-
-    \tabularx{\textwidth}{|l|X|}
-    \hline
-    Curso normal & Curso alternativo \\
-    \hline
-    \hline
-  }{
-    \endtabularx
-  }
-
-\newcommand{\ucstep}[2]{
-  \stepcounter{usecasecounter}%
-  \makebox[2ex][l]{\arabic{usecasecounter}.} #1 & \pbox[t]{11cm}{\setcounter{usecasealtcounter}{0} #2} \\
-  \hline
-}
-
-\newcommand{\ucalt}[1]{
-  \stepcounter{usecasealtcounter}
-  \makebox[4ex][l]{\arabic{usecasecounter}.\arabic{usecasealtcounter}.}
-  #1 \phantom{p}
-}
-
-\begin{usecase}
-  \ucpre{Terminó la secundaria}
-  \ucpost{Recibe premio Turing}
-  \ucname{Ser un mostro}
-  \ucactor{Leandro}
-\end{usecase}
-\begin{usecasesteps}
-  \ucstep{Estudiar computación.}
-         {\ucalt{Dedicarse a bellas artes.} \\
-          \ucalt{Morirse de hambre.} \\
-          \ucalt{Morirse de hambre.}}
-  \ucstep{Resolver $P=NP$.}
-         {\ucalt{Trabajar en otro problema.}}
-  \ucstep{Recibir premio Turing.}{}
-\end{usecasesteps}
-
-
-\vspace{2cm}
-
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Desarrollo                                                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -226,15 +217,10 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 
 \section{Casos de uso}
 
-\textbf{Caso de uso:} Registrando retiro de bicicleta
-
-\textbf{Pre:} True
-
-\textbf{Post:} Se registra el retiro de bicicleta
-
-\textbf{Actores:} Personal de la estación
-\\
-
+\textbf{Caso de uso:} Registrando retiro de bicicleta \\
+\textbf{Pre:} True \\
+\textbf{Post:} Se registra el retiro de bicicleta \\
+\textbf{Actores:} Personal de la estación \\
 \begin{tabular}{| p{7cm} | p{7cm} |}
 	\hline
 	Caso de uso normal & Caso de uso alternativo \\ \hline
@@ -248,6 +234,8 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 	8) El sistema registra la entrega de la bicicleta guardando DNI, ID de bicicleta y fecha y hora actual. Fin CU & \\
 	\hline
 \end{tabular}
+
+\newpage
 
 %%%{Registrando devolución de bicicleta}
 \begin{usecase}
@@ -278,7 +266,7 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
   \ucstep{El sistema guarda los datos ingresados.}{Si los datos ingresados ya existían, mostrar que no es posible realizar el registro, y volver a 1.}
   \ucstep{El sistema muestra al usuario que el registro se realizó correctamente.}{}
   \ucstep{El sistema autentica al usuario.}{}
-  \ucstep{Si lo desea, el usuario puede clickear un enlace para consultar sus multas pendientes. EXTIENDE CU Consultando multas pendientes.}{}
+  \ucstep{Si lo desea, el usuario puede clickear un enlace para consultar sus multas pendientes. \\ EXTIENDE CU Consultando multas pendientes.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
@@ -293,7 +281,7 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
   \ucstep{El usuario ingresa su número de DNI y su contraseña.}{}
   \ucstep{El sistema verifica que el usuario exista y que los datos ingresados sean correctos.}{}
   \ucstep{El sistema muestra al usuario que la autenticación fue satisfactoria.}{}
-  \ucstep{Si lo desea, el usuario puede clickear un enlace para consultar sus multas pendientes. EXTIENDE CU Consultando multas pendientes.}{}
+  \ucstep{Si lo desea, el usuario puede clickear un enlace para consultar sus multas pendientes. \\ EXTIENDE CU Consultando multas pendientes.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
