@@ -168,25 +168,25 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
     \setcounter{usecasecounter}{0}
     \setcounter{usecasealtcounter}{0}
 
-    \begin{tabular}{|l|l|}
+    \tabularx{\textwidth}{|l|X|}
     \hline
     Curso normal & Curso alternativo \\
     \hline
     \hline
   }{
-    \end{tabular}
+    \endtabularx
   }
 
 \newcommand{\ucstep}[2]{
   \stepcounter{usecasecounter}%
-  \makebox[2ex][l]{\arabic{usecasecounter}.} #1 & \pbox[t]{5cm}{\setcounter{usecasealtcounter}{0} #2} \\
+  \makebox[2ex][l]{\arabic{usecasecounter}.} #1 & \pbox[t]{11cm}{\setcounter{usecasealtcounter}{0} #2} \\
   \hline
 }
 
 \newcommand{\ucalt}[1]{
   \stepcounter{usecasealtcounter}
   \makebox[4ex][l]{\arabic{usecasecounter}.\arabic{usecasealtcounter}.}
-  #1
+  #1 \phantom{p}
 }
 
 \begin{usecase}
