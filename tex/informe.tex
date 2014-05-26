@@ -146,7 +146,24 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 \newcounter{usecasecounter}
 \newcounter{usecasealtcounter}
 
+\newcommand{\ucname}[1]{\renewcommand{\givenucname}{#1}}
+\newcommand{\ucpre}[1]{\renewcommand{\givenucpre}{#1}}
+\newcommand{\ucpost}[1]{\renewcommand{\givenucpost}{#1}}
+\newcommand{\ucactor}[1]{\renewcommand{\givenucactor}{#1}}
+\newcommand{\givenucname}{REQUIRED!}
+\newcommand{\givenucpre}{REQUIRED!}
+\newcommand{\givenucpost}{REQUIRED!}
+\newcommand{\givenucactor}{REQUIRED!}
+
 \newenvironment{usecase}
+  {}{
+    \textbf{Caso de uso: }\givenucname \\
+    \textbf{Pre: }\givenucpre \\
+    \textbf{Post: }\givenucpost \\
+    \textbf{Actores: }\givenucactor
+  }
+
+\newenvironment{usecasesteps}
   {
     \setcounter{usecasecounter}{0}
     \setcounter{usecasealtcounter}{0}
@@ -160,39 +177,36 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
     \end{tabular}
   }
 
-\newcommand\ucitem[2]{
-	\stepcounter{usecasecounter}
-	\setcounter{usecasealtcounter}{0}
-	\makebox[4ex][l]{\arabic{usecasecounter}.} #1 & \pbox[t]{5cm}{#2} \\
-	\hline
+\newcommand{\ucstep}[2]{
+  \stepcounter{usecasecounter}
+  \setcounter{usecasealtcounter}{0}
+  \makebox[4ex][l]{\arabic{usecasecounter}.} #1 & \pbox[t]{5cm}{#2} \\
+  \hline
 }
 
-\newcommand\ucalt[1]{
+\newcommand{\ucalt}[1]{
   \stepcounter{usecasealtcounter}
   \makebox[4ex][l]{\arabic{usecasecounter}.\arabic{usecasealtcounter}.}
   #1
 }
 
 \begin{usecase}
-  \ucitem{Estudiar computación.}
+  \ucpre{Terminó la secundaria}
+  \ucpost{Recibe premio Turing}
+  \ucname{Ser un mostro}
+  \ucactor{Leandro}
+\end{usecase}
+\begin{usecasesteps}
+  \ucstep{Estudiar computación.}
          {\ucalt{Dedicarse a bellas artes.} \\
           \ucalt{Morirse de hambre.}}
-  \ucitem{Resolver $P=NP$.}
+  \ucstep{Resolver $P=NP$.}
          {\ucalt{Trabajar en otro problema.}}
-  \ucitem{Recibir premio Turing.}{}
-\end{usecase}
+  \ucstep{Recibir premio Turing.}{}
+\end{usecasesteps}
 
-
-\vspace{5cm}
-
-\begin{usecase}
-  \ucitem{Otro caso de uso.}
-         {\ucalt{Otro curso alternativo.}}
-\end{usecase}
 
 \vspace{2cm}
-
-
 
 
 
