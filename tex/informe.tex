@@ -144,41 +144,44 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 
 
 \newcounter{usecasecounter}
-\newcounter{usecasealtcounter}[usecasecounter]
+\newcounter{usecasealtcounter}
 
 \newenvironment{usecase}
   {
+    \setcounter{usecasecounter}{0}
+    \setcounter{usecasealtcounter}{0}
+
     \begin{tabular}{|l|l|}
     \hline
     Curso normal & Curso alternativo \\
     \hline
     \hline
-    \setcounter{usecasecounter}{0}
   }{
     \end{tabular}
   }
 
 \newcommand\ucitem[2]{
 	\stepcounter{usecasecounter}
-	\arabic{usecasecounter}. #1 & \pbox[t]{5cm}{#2} \\
+	\setcounter{usecasealtcounter}{0}
+	\makebox[4ex][l]{\arabic{usecasecounter}.} #1 & \pbox[t]{5cm}{#2} \\
 	\hline
 }
 
-\newcommand\ucalt[1]{\stepcounter{usecasealtcounter}\arabic{usecasecounter}.\arabic{usecasealtcounter}. #1}
-
-
-
+\newcommand\ucalt[1]{
+  \stepcounter{usecasealtcounter}
+  \makebox[4ex][l]{\arabic{usecasecounter}.\arabic{usecasealtcounter}.}
+  #1
+}
 
 \begin{usecase}
   \ucitem{Estudiar computación.}
          {\ucalt{Dedicarse a bellas artes.} \\
-          \ucalt{Morirse de hambre.} \\
-          \ucalt{Morirse de hambre.} \\
           \ucalt{Morirse de hambre.}}
   \ucitem{Resolver $P=NP$.}
          {\ucalt{Trabajar en otro problema.}}
   \ucitem{Recibir premio Turing.}{}
 \end{usecase}
+
 
 \vspace{5cm}
 
