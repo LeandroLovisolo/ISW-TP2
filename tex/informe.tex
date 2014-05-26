@@ -178,9 +178,8 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
   }
 
 \newcommand{\ucstep}[2]{
-  \stepcounter{usecasecounter}
-  \setcounter{usecasealtcounter}{0}
-  \makebox[4ex][l]{\arabic{usecasecounter}.} #1 & \pbox[t]{5cm}{#2} \\
+  \stepcounter{usecasecounter}%
+  \makebox[2ex][l]{\arabic{usecasecounter}.} #1 & \pbox[t]{5cm}{\setcounter{usecasealtcounter}{0} #2} \\
   \hline
 }
 
@@ -199,6 +198,7 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 \begin{usecasesteps}
   \ucstep{Estudiar computación.}
          {\ucalt{Dedicarse a bellas artes.} \\
+          \ucalt{Morirse de hambre.} \\
           \ucalt{Morirse de hambre.}}
   \ucstep{Resolver $P=NP$.}
          {\ucalt{Trabajar en otro problema.}}
