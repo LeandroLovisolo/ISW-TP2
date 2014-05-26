@@ -287,133 +287,167 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 
 %%%{Consultando disponibilidad de bicicletas}
 \begin{usecase}
-  \ucpre{}
-  \ucpost{}
-  \ucname{}
-  \ucactor{}
+  \ucpre{True}
+  \ucpost{El usuario conoce la disponibilidad de la estación deseada}
+  \ucname{Consultando disponibilidad de bicicletas}
+  \ucactor{Usuario}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{}{}
-  \ucstep{}{}
-  \ucstep{}{}
+  \ucstep{El sistema muestra una lista de las estaciones a consultar por disponibilidad.}{}
+  \ucstep{El usuario selecciona la estación deseada.}{}
+  \ucstep{El sistema muestra la disponibilidad de la estación deseada.}{}
+  \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
 %%%{Consultando multas pendientes}
 \begin{usecase}
-  \ucpre{}
-  \ucpost{}
-  \ucname{}
-  \ucactor{}
+  \ucpre{El usuario está autenticado}
+  \ucpost{El usuario conoce las multas que tiene pendientes}
+  \ucname{Consultando multas pendientes}
+  \ucactor{Usuario}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{}{}
-  \ucstep{}{}
-  \ucstep{}{}
+  \ucstep{Si se tienen multas pendientes, el sistema muestra al usuario qué tipo de multa y el importe a abonar. Caso contrario, el sistema informa que está libre de deudas.}{}
+  \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
-%%%{Registrando nuevas bicicletas}
+%%%{Autenticándose como administrador}
 \begin{usecase}
-  \ucpre{}
-  \ucpost{}
-  \ucname{}
-  \ucactor{}
+  \ucpre{True}
+  \ucpost{El personal del gobierno está autenticado como administrador}
+  \ucname{Consultando multas pendientes}
+  \ucactor{Personal del gobierno}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{}{}
-  \ucstep{}{}
-  \ucstep{}{}
+  \ucstep{El personal del gobierno ingresa su usuario y su contraseña.}{}
+  \ucstep{El sistema verifica que el usuario exista y que los datos ingresados sean correctos.}{}
+  \ucstep{El sistema muestra al usuario que la autenticación fue satisfactoria.}{Si los datos ingresados son incorrectos, el sistema indica que la autenticación no fue satisfactoria, y vuelve a 1).}
+  \ucstep{Si lo desea, el usuario puede clickear un enlace para consultar sus multas pendientes. Es extendido por CU 4. \\ 
+  Si lo desea, el usuario puede clickear un enlace para registrar nuevas bicicletas. \\
+  Es extendido por CU .. \\
+  Si lo desea, el usuario puede clickear un enlace para registrar una nueva estación. \\
+  Es extendido por CU .. \\
+  Si lo desea, el usuario puede clickear un enlace para informar la eliminación de una bicicleta.}{}
+  \ucstep{Fin caso de uso.}{}
+\end{usecasesteps}
+%%%{Registrando nuevas bicicletas}
+\begin{usecase}
+  \ucpre{El personal del estado está autenticado}
+  \ucpost{Nuevas bicicletas registradas en el sistema y el personal del gobierno conoce los IDs asignados a las bicicletas.}
+  \ucname{Registrando nuevas bicicletas}
+  \ucactor{Personal del gobierno}
+\end{usecase}
+\begin{usecasesteps}
+  \ucstep{El personal del gobierno de mar chiquita ingresa la cantidad de bicicletas nuevas.}{}
+  \ucstep{El sistema registra el número de bicicletas ingresado por el personal, asignándole a cada bicicleta registrada un ID único.}{}
+  \ucstep{El sistema informa al personal los IDs de las bicicletas registradas.}{}
+  \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
 %%%{Eliminando bicicleta}
 \begin{usecase}
-  \ucpre{}
-  \ucpost{}
-  \ucname{}
-  \ucactor{}
+  \ucpre{El personal del gobierno está autenticado}
+  \ucpost{Una bicicleta es eliminada del sistema}
+  \ucname{Informando bicicleta a eliminar}
+  \ucactor{Personal del gobierno}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{}{}
-  \ucstep{}{}
-  \ucstep{}{}
+  \ucstep{El personal del gobierno ingresa el ID de la bicicleta a eliminar del sistema.}{}
+  \ucstep{El sistema verifica que el ID de la bicicleta a eliminar corresponda a una bicicleta en el sistema.}{}
+  \ucstep{El sistema muestra que la operación se realizó correctamente e informar la última ubicación de la bicicleta.}{Si el ID es incorrecto, mostrar que el ID ingresado no es válido y volver a 1).}
+  \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
 %%%{Registrando nueva estación}
 \begin{usecase}
-  \ucpre{}
-  \ucpost{}
-  \ucname{}
-  \ucactor{}
+  \ucpre{El personal del gobierno está autenticado}
+  \ucpost{Se registra en el sistema la nueva estación}
+  \ucname{Registrando nueva estación}
+  \ucactor{Personal del gobierno}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{}{}
-  \ucstep{}{}
-  \ucstep{}{}
+  \ucstep{El personal del gobierno ingresa el nombre de la nueva estación y su ubicación, indicando si pertenece al centro o a la periferia.}{}
+  \ucstep{El sistema verifica si ya existe una estación con el mismo nombre o la misma ubicación.}{}
+  \ucstep{El sistema muestra que el ingreso de la nueva estación fue correcto.}{Si existe una estación con el mismo nombre o la misma ubicación, mostrar cuál fue el ingreso erróneo y volver a 1).}
+  \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
 %%%{Registrando pago de multa}
 \begin{usecase}
-  \ucpre{}
-  \ucpost{}
-  \ucname{}
-  \ucactor{}
+  \ucpre{La persona con el DNI provisto registraba una multa sin abonar}
+  \ucpost{Se registra el cobro de la multa}
+  \ucname{Registrando pago de multa}
+  \ucactor{Personal de la estación}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{}{}
-  \ucstep{}{}
-  \ucstep{}{}
+  \ucstep{El personal de la estación ingresa el DNI de un usuario que registra multas sin abonar.}{}
+  \ucstep{El sistema registra el pago de la multa y despenaliza al usuario.}{}
+  \ucstep{El sistema informa que la acción fue realizada exitosamente.}{}
+  \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
 %%%{Consultando monto a pagar para un DNI}
 \begin{usecase}
-  \ucpre{}
-  \ucpost{}
-  \ucname{}
-  \ucactor{}
+  \ucpre{True}
+  \ucpost{El sistema muestra las multas pendientes por pagar de un determinado DNI}
+  \ucname{Consultando monto a pagar para un DNI}
+  \ucactor{Personal de la estación}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{}{}
-  \ucstep{}{}
-  \ucstep{}{}
+  \ucstep{El personal de la estación ingresa el DNI del usuario a consultar las multas.}{}
+  \ucstep{El sistema verifica que el DNI ingresado corresponda a un usuario.}{}
+  \ucstep{Si existen multas por abonar, el sistema muestra que tipo de multas y el importe total. Si no existen multas, el sistema muestra que está libre de deudas.}{Si el DNI ingresado es incorrecto, mostrar mensaje de DNI equivocado y volver a 1).}
+  \ucstep{Si el personal de la estación desea registrar el pago de las multas, extiende caso de uso Registrando Pago de Multa.}{}
+  \ucstep{Fin caso de uso}{}
 \end{usecasesteps}
 
 %%%{Registrando bicicletas recibidas de la empresa de transporte}
 \begin{usecase}
-  \ucpre{}
-  \ucpost{}
-  \ucname{}
-  \ucactor{}
+  \ucpre{Llega un camión con bicicletas y las descarga en la estación}
+  \ucpost{Se registra en el sistema la llegada de las bicicletas}
+  \ucname{Registrando datos de bicicletas recibidas de la empresa de transporte}
+  \ucactor{Personal de la estación}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{}{}
-  \ucstep{}{}
-  \ucstep{}{}
+  \ucstep{El personal de la estación ingresa los ID de las bicicletas recibidas.}{}
+  \ucstep{El sistema registra la ubicación de las bicicletas con los ID ingresados y actualiza el stock de la estación.}{}
+  \ucstep{El sistema muestra que la operación fue realizada exitosamente.}{}
+  \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
 %%%{Registrando bicicletas retiradas por la empresa de transporte}
 \begin{usecase}
-  \ucpre{}
-  \ucpost{}
-  \ucname{}
-  \ucactor{}
+  \ucpre{El sistema dió la orden de mover bicicletas y descontó el stock de las mismas de la estación}
+  \ucpost{El personal de la estación registra las bicicletas que se retirarán}
+  \ucname{Registrando datos de bicicletas retiradas por la empresa de transporte}
+  \ucactor{Personal de la estación}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{}{}
-  \ucstep{}{}
-  \ucstep{}{}
+  \ucstep{El personal de la estación ingresa los ID de las bicicletas a entregar a la empresa de transporte.}{}
+  \ucstep{El sistema registra el retiro de las bicicletas con los ID ingresados.}{}
+  \ucstep{El sistema muestra que la operación fue realizada exitosamente.}{}
+  \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
 %%%{Generando mail de instrucciones para movilización de bicicletas}
 \begin{usecase}
-  \ucpre{}
-  \ucpost{}
-  \ucname{}
-  \ucactor{}
+  \ucpre{True}
+  \ucpost{El personal de la empresa de transporte recibe el mail con las indicaciones de cómo mover las bicicletas}
+  \ucname{Generando mail de instrucciones para movilización de bicicletas}
+  \ucactor{Personal de la empresa de transporte}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{}{}
-  \ucstep{}{}
-  \ucstep{}{}
+  \ucstep{El sistema decide qué bicicletas transportar.}{}
+  \ucstep{El sistema reduce el stock de las estaciones de acuerdo a cuántas bicicletas van a ser retiradas.}{}
+  \ucstep{El sistema envía mail al personal de la empresa de transporte con indicaciones de cómo mover las bicicletas.}{}
+  \ucstep{El personal de la empresa de transporte recibe el mail con las indicaciones de cómo mover las bicicletas.}{}
+  \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
+\section{Modelo conceptual}
+
+\subsection{Modelo}
+
+\subsection{OCL}
 
 \end{document}
