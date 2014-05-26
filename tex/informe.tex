@@ -146,8 +146,21 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 \newcounter{usecasecounter}
 \newcounter{usecasealtcounter}[usecasecounter]
 
+\newcommand{\ucname}[1]{\renewcommand{\givenucname}{#1}}
+\newcommand{\ucpre}[1]{\renewcommand{\givenucpre}{#1}}
+\newcommand{\ucpost}[1]{\renewcommand{\givenucpost}{#1}}
+\newcommand{\ucactor}[1]{\renewcommand{\givenucactor}{#1}}
+\newcommand{\givenucname}{REQUIRED!}
+\newcommand{\givenucpre}{REQUIRED!}
+\newcommand{\givenucpost}{REQUIRED!}
+\newcommand{\givenucactor}{REQUIRED!}
+
 \newenvironment{usecase}
   {
+    \textbf{Caso de uso: }\givenucname \\
+    \textbf{Pre: }\givenucpre \\
+    \textbf{Post: }\givenucpost \\
+    \textbf{Actores: }\givenucactor \\
     \begin{tabular}{|l|l|}
     \hline
     Curso normal & Curso alternativo \\
@@ -167,9 +180,11 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 \newcommand\ucalt[1]{\stepcounter{usecasealtcounter}\arabic{usecasecounter}.\arabic{usecasealtcounter}. #1}
 
 
-
-
 \begin{usecase}
+  \ucpre{Terminó la secundaria}
+  \ucpost{Recibe premio Turing}
+  \ucname{Ser un mostro}
+  \ucactor{Leandro}
   \ucitem{Estudiar computación.}
          {\ucalt{Dedicarse a bellas artes.} \\
           \ucalt{Morirse de hambre.} \\
@@ -180,12 +195,10 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
   \ucitem{Recibir premio Turing.}{}
 \end{usecase}
 
-\vspace{5cm}
-
-\begin{usecase}
-  \ucitem{Otro caso de uso.}
-         {\ucalt{Otro curso alternativo.}}
-\end{usecase}
+% \begin{usecase}
+%   \ucitem{Otro caso de uso.}
+%          {\ucalt{Otro curso alternativo.}}
+% \end{usecase}
 
 \vspace{2cm}
 
