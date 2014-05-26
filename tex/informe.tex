@@ -217,25 +217,25 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 
 \section{Casos de uso}
 
-\textbf{Caso de uso:} Registrando retiro de bicicleta \\
-\textbf{Pre:} True \\
-\textbf{Post:} Se registra el retiro de bicicleta \\
-\textbf{Actores:} Personal de la estación \\
-\begin{tabular}{| p{7cm} | p{7cm} |}
-	\hline
-	Caso de uso normal & Caso de uso alternativo \\ \hline
-	1) El sistema registra la petición de una bicicleta &  \\ \hline
-	2) El sistema consulta el stock & \\ \hline
-	3) El sistema reserva una bicicleta del stock hasta el fin del CU & 3.1) Si no hay stock, muestra que no hay stock. Fin CU \\ \hline
-	4) El personal de la estación ingresa el DNI & \\ \hline
-	5) El sistema verifica que el usuario esté registrado & \\ \hline
-	6) El sistema verifica que el usuario no esté penalizado & 6.1) Si el usuario no está registrado, muestra que no existe en el sistema. Fin CU \\ \hline
-	7) El personal de la estación ingresa el número de la bicicleta a asignar al usuario. & 7.1) Si el usuario está penalizado, se informa que lo está. Fin CU \\ \hline
-	8) El sistema registra la entrega de la bicicleta guardando DNI, ID de bicicleta y fecha y hora actual. Fin CU & \\
-	\hline
-\end{tabular}
-
-\newpage
+\begin{usecase}
+  \ucname{Registrando retiro de bicicleta}
+  \ucpre{True}
+  \ucpost{Se registra el retiro de bicicleta}
+  \ucactor{Personal de la estación}
+\end{usecase}
+\begin{usecasesteps}
+  \ucstep{El sistema registra la petición de una bicicleta}{}
+  \ucstep{El sistema consulta el stock}{}
+  \ucstep{El sistema reserva una bicicleta del stock hasta el fin del CU}
+         {\ucalt{Si no hay stock, muestra que no hay stock. Fin CU}}
+  \ucstep{El personal de la estación ingresa el DNI}{}
+  \ucstep{El sistema verifica que el usuario esté registrado}{}
+  \ucstep{El sistema verifica que el usuario no esté penalizado}
+         {\ucalt{Si el usuario no está registrado, muestra que no existe en el sistema. Fin CU}}
+  \ucstep{El personal de la estación ingresa el número de la bicicleta a asignar al usuario.}
+         {\ucalt{Si el usuario está penalizado, se informa que lo está. Fin CU}}
+  \ucstep{El sistema registra la entrega de la bicicleta guardando DNI, ID de bicicleta y fecha y hora actual. Fin CU}{}
+\end{usecasesteps}
 
 %%%{Registrando devolución de bicicleta}
 \begin{usecase}
