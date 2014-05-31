@@ -107,12 +107,12 @@
 
 \newcommand{\ucstep}[2]{
   \stepcounter{usecasecounter}%
-  \pbox[t]{7.5cm}{
+  \parbox[t]{7.5cm}{
     \makebox[2ex][l]{\arabic{usecasecounter}.}
     #1\phantom{p}
   }
   &
-  \pbox[t]{7.5cm}{
+  \parbox[t]{7.5cm}{
     \setcounter{usecasealtcounter}{0}
     #2\phantom{p}
   } \\
