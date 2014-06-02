@@ -265,7 +265,8 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 \begin{usecasesteps}
   \ucstep{El usuario ingresa su número de DNI, email, nombre y contraseña.}{}
   \ucstep{El sistema verifica que no esté registrado otro usuario con el email o DNI ingresado.}{}
-  \ucstep{El sistema guarda los datos ingresados.}{Si los datos ingresados ya existían, mostrar que no es posible realizar el registro, y volver a 1.}
+  \ucstep{El sistema guarda los datos ingresados.}
+         {\ucalt{Si los datos ingresados ya existían, mostrar que no es posible realizar el registro, y volver a 1.}}
   \ucstep{El sistema muestra al usuario que el registro se realizó correctamente.}{}
   \ucstep{El sistema autentica al usuario.}{}
   \ucstep{Si lo desea, el usuario puede clickear un enlace para consultar sus multas pendientes. \\ EXTIENDE CU Consultando multas pendientes.}{}
@@ -323,7 +324,8 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 \begin{usecasesteps}
   \ucstep{El personal del gobierno ingresa su usuario y su contraseña.}{}
   \ucstep{El sistema verifica que el usuario exista y que los datos ingresados sean correctos.}{}
-  \ucstep{El sistema muestra al usuario que la autenticación fue satisfactoria.}{Si los datos ingresados son incorrectos, el sistema indica que la autenticación no fue satisfactoria, y vuelve a 1).}
+  \ucstep{El sistema muestra al usuario que la autenticación fue satisfactoria.}
+         {\ucalt{Si los datos ingresados son incorrectos, el sistema indica que la autenticación no fue satisfactoria, y vuelve a 1).}}
   \ucstep{Si lo desea, el usuario puede clickear un enlace para consultar sus multas pendientes. Es extendido por CU 4. \\ 
   Si lo desea, el usuario puede clickear un enlace para registrar nuevas bicicletas. \\
   Es extendido por CU .. \\
@@ -332,6 +334,7 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
   Si lo desea, el usuario puede clickear un enlace para informar la eliminación de una bicicleta.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
+
 %%%{Registrando nuevas bicicletas}
 \begin{usecase}
   \ucpre{El personal del estado está autenticado}
@@ -356,7 +359,8 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 \begin{usecasesteps}
   \ucstep{El personal del gobierno ingresa el ID de la bicicleta a eliminar del sistema.}{}
   \ucstep{El sistema verifica que el ID de la bicicleta a eliminar corresponda a una bicicleta en el sistema.}{}
-  \ucstep{El sistema muestra que la operación se realizó correctamente e informar la última ubicación de la bicicleta.}{Si el ID es incorrecto, mostrar que el ID ingresado no es válido y volver a 1).}
+  \ucstep{El sistema muestra que la operación se realizó correctamente e informar la última ubicación de la bicicleta.}
+         {\ucalt{Si el ID es incorrecto, mostrar que el ID ingresado no es válido y volver a 1).}}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
@@ -370,7 +374,8 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 \begin{usecasesteps}
   \ucstep{El personal del gobierno ingresa el nombre de la nueva estación y su ubicación, indicando si pertenece al centro o a la periferia.}{}
   \ucstep{El sistema verifica si ya existe una estación con el mismo nombre o la misma ubicación.}{}
-  \ucstep{El sistema muestra que el ingreso de la nueva estación fue correcto.}{Si existe una estación con el mismo nombre o la misma ubicación, mostrar cuál fue el ingreso erróneo y volver a 1).}
+  \ucstep{El sistema muestra que el ingreso de la nueva estación fue correcto.}
+         {\ucalt{Si existe una estación con el mismo nombre o la misma ubicación, mostrar cuál fue el ingreso erróneo y volver a 1).}}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
@@ -398,7 +403,8 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 \begin{usecasesteps}
   \ucstep{El personal de la estación ingresa el DNI del usuario a consultar las multas.}{}
   \ucstep{El sistema verifica que el DNI ingresado corresponda a un usuario.}{}
-  \ucstep{Si existen multas por abonar, el sistema muestra que tipo de multas y el importe total. Si no existen multas, el sistema muestra que está libre de deudas.}{Si el DNI ingresado es incorrecto, mostrar mensaje de DNI equivocado y volver a 1).}
+  \ucstep{Si existen multas por abonar, el sistema muestra que tipo de multas y el importe total. Si no existen multas, el sistema muestra que está libre de deudas.}
+         {\ucalt{Si el DNI ingresado es incorrecto, mostrar mensaje de DNI equivocado y volver a 1).}}
   \ucstep{Si el personal de la estación desea registrar el pago de las multas, extiende caso de uso Registrando Pago de Multa.}{}
   \ucstep{Fin caso de uso}{}
 \end{usecasesteps}
