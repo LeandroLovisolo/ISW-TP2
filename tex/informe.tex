@@ -529,4 +529,24 @@ ESTAR INTERCALADOS ENTRE LOS ANTERIORES Y QUE LA NUMERACIÓN CAMBIE.}}
 
 \subsection{OCL}
 
+\section{Diagramas de Actividad}
+
+\subsection{Penalizaciones}
+
+Este diagrama describe la asignación de penalizaciones ante la devolución de una bicicleta. Las reglas de penalización son las siguientes:
+\begin{itemize}
+ \item Si la bicicleta es devuelta por una persona que no la retiró (sea usuario o no), el usuario que la retiró es penalizado con
+ ``BiciDevueltaPorOtraPersona''.
+ \item Si la bicicleta es devuelta por el usuario que la retiró y está en mal estado, el usuario (que la retiró y también devolvió) es penalizado
+ con ``DevoluciónEnMalEstado''.
+\end{itemize}
+Observar que asumimos que siempre que una bicicleta es devuelta, había sido retirada por alguien (el ``usuario que la retiró'' siempre existe).
+Esto se debe a que no tenemos en cuenta en nuestro modelo la baja de usuarios ni tampoco el robo de bicicletas directamente de la estación (sin que hayan sido entregadas a un usuario).
+
+Cabe aclarar que estas no son todas las penalizaciones posibles, sino que son únicamente las que se desencadenan ante la devolución de una bicicleta.
+Ver {\bf FSM ``Penalizaciones''} (Sección \ref{fsm:penalizaciones}).
+
+
+\section{Máquinas de Estado}
+\subsection{Penalizaciones} \label{fsm:penalizaciones}
 \end{document}
