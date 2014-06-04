@@ -17,6 +17,7 @@
 \usepackage{multirow}
 \usepackage{hyperref}
 \usepackage{multicol}
+\usepackage{listings}
 \usepackage[toc, page]{appendix}
 \usepackage{color}
 
@@ -128,6 +129,19 @@
   #1
 }
 %%%%%%%%%% Macros para Casos de Uso - Fin %%%%%%%%%%
+
+%%%%%%%%%% Macro para OCL - Inicio %%%%%%%%%%%%
+
+\newcommand{\ocl}[3] {
+  \textbf{#1}
+
+  Context #2
+
+  Inv:
+  \lstinline[language=OCL]{#3}
+}
+
+%%%%%%%%%% Macro para OCL - Fin %%%%%%%%%%%%
 
 
 \begin{document}
@@ -528,6 +542,8 @@ ESTAR INTERCALADOS ENTRE LOS ANTERIORES Y QUE LA NUMERACIÓN CAMBIE.}}
 \subsection{Modelo}
 
 \subsection{OCL}
+\subsubsection{Retiro de bicicletas}
+\ocl{Todo retiro tiene una solicitud con la misma hora}{Retiro de bicicleta}{self.solicitud.fechaYHora = self.fechaYHora}
 
 \section{Diagramas de Actividad}
 
