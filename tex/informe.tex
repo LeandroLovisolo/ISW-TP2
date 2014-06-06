@@ -386,6 +386,52 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
+%%%{Registrando datos de bicicletas retiradas por la empresa de transporte}
+\begin{usecase}
+  \ucname{Registrando datos de bicicletas retiradas por la empresa de transporte}
+  \ucpre{El sistema dió la orden de mover bicicletas y descontó el stock de las mismas de la estación (y marcó esa cantidad como “reservada”)}
+  \ucpost{El personal de la estación registra las bicicletas que se retirarán}
+  \ucactor{Personal de la estación}
+\end{usecase}
+\begin{usecasesteps}
+  \ucstep{El personal de estación ingresa el número de estación y presiona “Siguiente”. Si no lo ingresa, por default se toma el número de la estación en la que se encuentra.}{}
+  \ucstep{El personal de la estación ingresa los ID de las bicicletas a entregar a la empresa de transporte.}
+	 {\ucalt{Si el número de estación no es válido, el sistema lo indica por pantalla. Fin CU.}}
+  \ucstep{El sistema verifica que los IDs de las bicicletas ingresadas pertenezcan a bicicletas en la estación.}{}
+  \ucstep{El sistema registra el retiro de las bicicletas con los ID ingresados.}
+	 {\ucalt{Si alguno de los IDs ingresados es erróneo, muestra que es incorrecto y vuelve a 2).}}
+  \ucstep{El sistema muestra que la operación fue realizada exitosamente.}{}
+  \ucstep{Fin caso de uso.}{}
+\end{usecasesteps}
+
+%%%{Registrando datos de bicicletas recibidas de la empresa de transporte}
+\begin{usecase}
+  \ucname{Registrando datos de bicicletas recibidas de la empresa de transporte}
+  \ucpre{Llega un camión con bicicletas y las descarga en la estación}
+  \ucpost{Se registra en el sistema la llegada de las bicicletas}
+  \ucactor{Personal de la estación}
+\end{usecase}
+\begin{usecasesteps}
+  \ucstep{El personal de estación ingresa el número de estación y presiona “Siguiente”. Si no lo ingresa, por default se toma el número de la estación en la que se encuentra.}{}
+  \ucstep{El personal de la estación ingresa los ID de las bicicletas recibidas.}
+         {\ucalt{Si el número de estación no es válido, el sistema lo indica por pantalla. Fin CU.}}
+  \ucstep{El sistema verifica que los ID de las bicicletas ingresadas estuvieran siendo transportadas hacia esta estación.}{}
+  \ucstep{El sistema registra la ubicación de las bicicletas con los ID ingresados y actualiza el stock de la estación.}
+         {\ucalt{Si existe algún ID que no concuerda con el transporte realizado, se muestra por pantalla cuál ID está erróneo y el personal de la estación puede optar por volver a 1) y re ingresar correctamente el ID o en el caso que los IDs ingresados sean correctos, clickear “Omitir” y el sistema se encargará de corregir el error usando los datos de registro.}}
+  \ucstep{El sistema muestra que la operación fue realizada exitosamente.}{}
+  \ucstep{Fin caso de uso.}{}
+\end{usecasesteps}
+
+{\underline{Aclaración de 4.1:}} Veamos cómo el sistema realiza la corrección con un ejemplo:
+Tenemos la estación A y la estación B. Llega un camión a la estación A con la orden de transportar 5 bicicletas desde allí hasta la estación B. El personal de la estación en A ingresa los 5 IDs (que corresponden a bicicletas en la estación A) y el sistema las valida. Luego le entrega al camión 5 bicicletas, de las cuales 3 son erróneas (no se corresponden con ninguno de los IDs ingresados). Luego el camión viaja y las entrega en la estación B.
+
+El personal de la estación B ingresa los 5 IDs de las bicicletas que le llegaron y el sistema rechaza 3 de ellas porque no coinciden con el registro de envío. Entonces el personal clickea “Omitir” y el sistema intercambia las ubicaciones de las 3 bicicletas que llegaron con las 3 que estaban registradas en el envío. Observar que las 3 que viajaron y que según el sistema estaban en la estación A, no podrán ser retiradas hasta que no se haga la corrección (ver paso 9 de {\bf CU 8}).
+
+
+
+
+
+
 %%%{Autenticándose como administrador}
 \begin{usecase}
   \ucname{Consultando multas pendientes}
@@ -400,10 +446,10 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
          {\ucalt{Si los datos ingresados son incorrectos, el sistema indica que la autenticación no fue satisfactoria, y vuelve a 1.}}
   \ucstep{Si lo desea, el personal del gobierno puede hacer click en alguno de los siguientes enlaces:
    \begin{itemize}[itemsep=-3pt, topsep=1pt]
-    \item Registrar nuevas bicicletas. Es extendido por {\bf CU 11}.
-    \item Registrar una nueva estación. Es extendido por {\bf CU 12}.
-    \item Informar la eliminación de una bicicleta. Es extendido por {\bf CU 13}.
-    \item Estadísticas del sistema. Es extendido por {\bf CU 14}.
+    \item Registrar nuevas bicicletas. Es extendido por {\bf CU 13}.
+    \item Registrar una nueva estación. Es extendido por {\bf CU 14}.
+    \item Informar la eliminación de una bicicleta. Es extendido por {\bf CU 15}.
+    \item Estadísticas del sistema. Es extendido por {\bf CU 16}.
    \end{itemize}}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
@@ -493,49 +539,6 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 \end{usecasesteps}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-{\bf \color{red}{LO QUE VIENE DE ACA EN MÁS NO ESTÁ TERMINADO EN EL DOCS Y LA NUMERACIÓN ES FRUTA. DE HECHO ES PROBABLE QUE ESTOS DEBAN
-ESTAR INTERCALADOS ENTRE LOS ANTERIORES Y QUE LA NUMERACIÓN CAMBIE.}}
-
-
-%%%{Registrando bicicletas recibidas de la empresa de transporte}
-\begin{usecase}
-  \ucpre{Llega un camión con bicicletas y las descarga en la estación}
-  \ucpost{Se registra en el sistema la llegada de las bicicletas}
-  \ucname{Registrando datos de bicicletas recibidas de la empresa de transporte}
-  \ucactor{Personal de la estación}
-\end{usecase}
-\begin{usecasesteps}
-  \ucstep{El personal de la estación ingresa los ID de las bicicletas recibidas.}{}
-  \ucstep{El sistema registra la ubicación de las bicicletas con los ID ingresados y actualiza el stock de la estación.}{}
-  \ucstep{El sistema muestra que la operación fue realizada exitosamente.}{}
-  \ucstep{Fin caso de uso.}{}
-\end{usecasesteps}
-
-%%%{Registrando bicicletas retiradas por la empresa de transporte}
-\begin{usecase}
-  \ucpre{El sistema dió la orden de mover bicicletas y descontó el stock de las mismas de la estación}
-  \ucpost{El personal de la estación registra las bicicletas que se retirarán}
-  \ucname{Registrando datos de bicicletas retiradas por la empresa de transporte}
-  \ucactor{Personal de la estación}
-\end{usecase}
-\begin{usecasesteps}
-  \ucstep{El personal de la estación ingresa los ID de las bicicletas a entregar a la empresa de transporte.}{}
-  \ucstep{El sistema registra el retiro de las bicicletas con los ID ingresados.}{}
-  \ucstep{El sistema muestra que la operación fue realizada exitosamente.}{}
-  \ucstep{Fin caso de uso.}{}
-\end{usecasesteps}
 
 \section{Modelo conceptual}
 
