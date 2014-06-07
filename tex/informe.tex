@@ -395,13 +395,18 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 \end{usecase}
 \begin{usecasesteps}
   \ucstep{El personal de estación ingresa el número de estación y presiona “Siguiente”. Si no lo ingresa, por default se toma el número de la estación en la que se encuentra.}{}
-  \ucstep{El personal de la estación ingresa los ID de las bicicletas a entregar a la empresa de transporte.}
+  \ucstep{El personal de la estación ingresa el ID relacionado al envío.}
 	 {\ucalt{Si el número de estación no es válido, el sistema lo indica por pantalla. Fin CU.}}
+  \ucstep{El sistema verifica que el ID ingresado del envío sea un envío que salga de la estación donde se ingresó y que no haya sido completado anteriormente.}{}
+  \ucstep{El sistema muestra la cantidad de bicicletas que se necesitan trasladar y los campos para ingresar los ID’s de las mismas.}
+	 {\ucalt{Si el ID de envío ingresado es incorrecto, volver a 3) y mostrar mensaje.}}
+  \ucstep{El personal de la estación ingresa los ID de las bicicletas a entregar a la empresa de transporte.}{}
   \ucstep{El sistema verifica que los IDs de las bicicletas ingresadas pertenezcan a bicicletas en la estación.}{}
   \ucstep{El sistema registra el retiro de las bicicletas con los ID ingresados.}
-	 {\ucalt{Si alguno de los IDs ingresados es erróneo, muestra que es incorrecto y vuelve a 2).}}
+	 {\ucalt{SSi alguno de los IDs ingresados es erróneo, muestra que es incorrecto y vuelve a 2).}}
   \ucstep{El sistema muestra que la operación fue realizada exitosamente.}{}
   \ucstep{Fin caso de uso.}{}
+  
 \end{usecasesteps}
 
 %%%{Registrando datos de bicicletas recibidas de la empresa de transporte}
@@ -413,6 +418,10 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 \end{usecase}
 \begin{usecasesteps}
   \ucstep{El personal de estación ingresa el número de estación y presiona “Siguiente”. Si no lo ingresa, por default se toma el número de la estación en la que se encuentra.}{}
+  \ucstep{El personal de la estación ingresa el ID relacionado al envío.}{}
+  \ucstep{El sistema verifica que el ID ingresado del envío sea un envío que tuviera como destino el ID de la estación ingresada y no se haya completado anteriormente.}{}
+  \ucstep{El sistema muestra la cantidad de bicicletas que deberían llegar y los campos para ingresar los ID’s de las mismas.}
+         {\ucalt{Si el ID de envío ingresado es incorrecto, volver a 3) y mostrar mensaje.}}       
   \ucstep{El personal de la estación ingresa los ID de las bicicletas recibidas.}
          {\ucalt{Si el número de estación no es válido, el sistema lo indica por pantalla. Fin CU.}}
   \ucstep{El sistema verifica que los ID de las bicicletas ingresadas estuvieran siendo transportadas hacia esta estación.}{}
@@ -422,13 +431,9 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
-{\underline{Aclaración de 4.1:}} Veamos cómo el sistema realiza la corrección con un ejemplo:
+{\underline{Aclaración de 7.1:}} Veamos cómo el sistema realiza la corrección con un ejemplo:
 Tenemos la estación A y la estación B. Llega un camión a la estación A con la orden de transportar 5 bicicletas desde allí hasta la estación B. El personal de la estación en A ingresa los 5 IDs (que corresponden a bicicletas en la estación A) y el sistema las valida. Luego le entrega al camión 5 bicicletas, de las cuales 3 son erróneas (no se corresponden con ninguno de los IDs ingresados). Luego el camión viaja y las entrega en la estación B.
-
 El personal de la estación B ingresa los 5 IDs de las bicicletas que le llegaron y el sistema rechaza 3 de ellas porque no coinciden con el registro de envío. Entonces el personal clickea “Omitir” y el sistema intercambia las ubicaciones de las 3 bicicletas que llegaron con las 3 que estaban registradas en el envío. Observar que las 3 que viajaron y que según el sistema estaban en la estación A, no podrán ser retiradas hasta que no se haga la corrección (ver paso 9 de {\bf CU 8}).
-
-
-
 
 
 
@@ -450,6 +455,7 @@ El personal de la estación B ingresa los 5 IDs de las bicicletas que le llegaro
     \item Registrar una nueva estación. Es extendido por {\bf CU 14}.
     \item Informar la eliminación de una bicicleta. Es extendido por {\bf CU 15}.
     \item Estadísticas del sistema. Es extendido por {\bf CU 16}.
+    \item Invalidar penalizaciones de un usuario. Es extendido por {\bf CU 17}.
    \end{itemize}}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
@@ -462,7 +468,7 @@ El personal de la estación B ingresa los 5 IDs de las bicicletas que le llegaro
   \ucactor{Personal del gobierno}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{El personal del gobierno de mar chiquita ingresa la cantidad de bicicletas nuevas.}{}
+  \ucstep{El personal del gobierno de mar chiquita ingresa la cantidad de bicicletas nuevas y el ID de la estación inicial.}{}
   \ucstep{El sistema registra el número de bicicletas ingresado por el personal, asignándole a cada bicicleta registrada un ID único.}{}
   \ucstep{El sistema informa al personal los IDs de las bicicletas registradas.}{}
   \ucstep{Fin caso de uso.}{}
@@ -499,6 +505,7 @@ El personal de la estación B ingresa los 5 IDs de las bicicletas que le llegaro
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
+%%%{Consultando estadísticas}
 \begin{usecase}
   \ucname{Consultando estadísticas}
   \ucpre{El personal del gobierno está autenticado}
@@ -526,7 +533,24 @@ El personal de la estación B ingresa los 5 IDs de las bicicletas que le llegaro
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
-%%%{Generando mail de instrucciones para movilización de bicicletas}
+%%%{Invalidando penalización}
+\begin{usecase}
+  \ucname{Invalidando penalización}
+  \ucpre{El personal del gobierno está autenticado}
+  \ucpost{El personal del gobierno despenaliza a un usuario.}
+  \ucactor{Personal del gobierno}
+\end{usecase}
+\begin{usecasesteps}
+  \ucstep{El personal del gobierno indica el DNI del usuario que desea despenalizar.}{}
+  \ucstep{El sistema verifica que el DNI esté registrado y tenga alguna penalización.}{}
+  \ucstep{El sistema muestra una tabla informando las infracciones cometidas por el usuario, indicando el motivo, el monto individual y total a pagar por las mismas.}
+         {\ucalt{Si el DNI no estaba registrado, el sistema muestra por pantalla que el DNI es erróneo y regresa a 1. Si el DNI estaba registrado pero no tenía ninguna penalización, muestra un mensaje informándolo y vuelve a 1.}}
+  \ucstep{El personal del gobierno selecciona las penalizaciones que desea eliminar de la tabla y hace clic en “Eliminar”.}{}
+  \ucstep{El sistema elimina todo registro de las penalizaciones seleccionadas por el personal del gobierno.}{}
+  \ucstep{Fin caso de uso.}{}
+\end{usecasesteps}
+
+%%%{Recibiendo mail de instrucciones para movilización de bicicletas}
 \begin{usecase}
   \ucname{Recibiendo mail de instrucciones para movilización de bicicletas}
   \ucpre{True}
@@ -534,7 +558,7 @@ El personal de la estación B ingresa los 5 IDs de las bicicletas que le llegaro
   \ucactor{Personal de la empresa de transporte}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{El sistema envía mail al personal de la empresa de transporte informando cómo mover las bicicletas. En una tabla, por cada entrada indica estación orígen, estación destino, la dirección de cada estación y la cantidad de bicicletas a trasladar.}{}
+  \ucstep{El sistema envía mail al personal de la empresa de transporte informando cómo mover las bicicletas. En una tabla, por cada entrada indica: ID del envío, estación orígen, estación destino, la dirección de cada estación y la cantidad de bicicletas a trasladar.}{}
   \ucstep{El personal de la empresa de transporte recibe el mail.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
