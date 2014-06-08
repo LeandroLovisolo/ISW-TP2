@@ -216,6 +216,13 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 
 \section{Introducción}
 
+En el siguiente informe, mostraremos en detalle nuevos aspectos y puntos de vista del proyecto de bicisendas de Mar Chiquita.
+
+Mostraremos cómo se relacionan los conceptos del proyecto mediante un diagrama de modelo conceptual y mostraremos mediante la utilización de OCL los invariantes que se aplican sobre el mismo.
+
+Utilizaremos el diagrama del modelo de casos de uso para detallar la interacción de tanto usuarios como el personal autorizado para la utilización del software y describiremos cada caso de uso a continuación del mismo.
+
+Por último, nos valeremos de diagramas de actividades y FSM para brindar detalle tanto a las interacciones entre agentes como a eventos específicos como las penalizaciones.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Diferencias con especificaciones anteriores                               %%
@@ -231,8 +238,10 @@ COMPLETAR CON EL DOCS
 %% Desarrollo                                                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 \section{Desarrollo}
+Debido a que la continuidad del proyecto requería de la elección de una de las alternativas propuestas anteriormente para la distribución de bicicletas en hora pico, elegimos la propuesta de que las distribuciones se realicen de manera automática utilizando los datos estadísticos recaudados por el sistema.
+
+Esta elección se debe a que la distribución automática propone una manera más simple y precisa, ya que no se requiere de nadie calculando o decidiendo para cada estación, que cantidad de bicicletas le toca a cada una, permitiendo así, un mejor uso de los recursos disponibles.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -628,8 +637,6 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y relacion
 \end{description}
 
 
-
-
 \subsection{OCL}
 
 
@@ -643,6 +650,29 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y relacion
        (self.pago <> null implies self.pago.fechaPago <> null)
 \end{ocl}
 
+\begin{ocl}{Si hay una penalización en mal estado, existe una devolución en mal estado}
+  context Penalización
+  inv: self.tipo = DevoluciónEnMalEstado implies self.usuario.devoluciones->exists(d |
+           d.enBuenEstado = false and d.fechaYHora = self.fechaCreación)
+\end{ocl}
+
+\begin{ocl}{Si hay una multa por devolución por otra persona, existe una devolución sin usuario o con un usuario distinto}
+  context Penalización
+  inv: self.tipo = BiciDevueltaPorOtraPersona implies
+           self.usuario.retiros->select(r | r.devolución <> null)
+                               ->exists(r | (r.devolución.usuario = null or
+                                             r.devolución.usuario != r.usuario) and
+                                            r.devolución.fechaYHora = self.fechaCreación)
+\end{ocl}
+
+\begin{ocl}{Si hay una multa por pasar más de una hora, existe un retiro sin devolución por más de una hora}
+  context Penalización
+  inv: self.tipo = PasoUnaHoraDesdeRetiro implies self.usuario.retiros->exists(r |
+           (r.devolución = null or (r.devolución <> null and
+                                    r.devolución.fechaYHora >= r.fechaYHora + 1h)) and
+           self.fechaCreación = r.fechaYHora + 1h)
+\end{ocl}
+
 \begin{ocl}{Para cada devolución en mal estado existe una penalización}
   context DevoluciónDeBicicleta
   inv: self.enBuenEstado = false implies
@@ -651,26 +681,19 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y relacion
                p.tipo = DevoluciónEnMalEstado)
 \end{ocl}
 
-\begin{ocl}{Si existe una devolución sin usuario, hay multa por devolución de otro usuario}
-  context DevoluciónDeBicicleta
-  inv: self.usuario = null implies
+\begin{ocl}{Si existe una devolución sin usuario o con un usuario distinto, hay multa por devolución de otro usuario}
+  context Devolución de Bicicleta
+  inv: (self.usuario = null or self.retiro.usuario <> self.usuario) implies
            self.retiro.usuario.penalizaciones->exists(p |
-               p.tipo = BiciDevueltaPorOtraPersona and
-               p.fechaCreación = self.fechaYHora)
-\end{ocl}
-
-\begin{ocl}{Si existe una devolución con otro usuario, hay multa para el usuario que la retiró}
-  context DevoluciónDeBicicleta
-  inv: (self.usuario <> self.retiro.usuario and self.usuario <> null) implies
-           self.retiro.usuario.penalizaciones->exists(p |
-               p.tipo = BiciDevueltaPorOtraPersona)
+               p.tipo = BiciDevueltaPorOtraPersona and p.fechaCreación = self.fechaYHora)
 \end{ocl}
 
 \begin{ocl}{Si existe un retiro de bicicleta donde ya pasó más de una hora, hay una multa (automática)}
   context RetiroDeBicicleta
-  inv: (self.devolución = null and today() >= self.fechaYHora + 1h) implies
+  inv: (self.devolución = null and today() >= self.fechaYHora + 1h) or
+       (self.devolución <> null and self.fechaYHora <= self.devolución.fechaYHora + 1h) implies
            self.usuario.penalizaciones->exists(p |
-               (p.fechaCreación = self.fechaYHora + 1h) and
+               p.fechaCreación = self.fechaYHora + 1h and
                p.tipo = PasoUnaHoraDesdeRetiro)
 \end{ocl}
 
@@ -713,11 +736,6 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y relacion
 \begin{ocl}{Los retiros tienen fecha mayor o igual a la de las devoluciones}
   context RetiroDeBicicleta
   inv: self.devolucion <> null implies self.fechaYHora >= self.devolución.fechaYHora
-\end{ocl}
-
-\begin{ocl}{Los retiros corresponden a la misma bicicleta que las devoluciones}
-  context RetiroDeBicicleta
-  inv: self.devolucion <> null implies self.bicicleta = self.devolución.bicicleta
 \end{ocl}
 
 
