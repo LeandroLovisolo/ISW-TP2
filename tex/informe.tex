@@ -642,6 +642,112 @@ Pendiente.
 \end{ocl}
 
 
+\subsubsection{Retiros}
+
+\begin{ocl}{Todo retiro tiene una solicitud con la misma hora}
+  context RetiroDeBicicleta
+  inv: self.solicitud.fechaYHora = self.fechaYHora
+\end{ocl}
+
+\begin{ocl}{No puede existir un retiro de bicicletas si existía alguna penalización sin pagar antes del retiro}
+  context RetiroDeBicicleta
+  inv: self.usuario.penalizaciones->forAll(p |
+           (p.fechaCreación < self.fechaYHora) implies
+               (p.pago <> null and
+               p.pago.fechaPago <= self.fechaYHora))
+\end{ocl}
+
+\begin{ocl}{Un usuario no puede tener más de una bicicleta}
+  context Usuario
+  inv: self.retiros->select(r1 | r1.devolución = null)->size() <= 1
+\end{ocl}
+
+\begin{ocl}{No hay solapamientos entre los retiros (franjas de entrega y devolución que se solapen)}
+  context RetiroDeBicicleta
+  inv: RetiroDeBicicleta->allInstances()->forAll(r1, r2 |
+           (r1 <> r2 and r1.devolución <> null and r2.devolución <> null) implies
+               ((r1.fechaYHora < r2.fechaYHora implies
+                   r1.devolución.fechaYHora < r2.fechaYHora) and
+                (r1.fechaYHora > r2.fechaYHora implies
+                   r1.devolución.fechaYHora > r2.fechaYHora)))
+\end{ocl}
+
+\begin{ocl}{Los retiros tienen fecha mayor o igual a la de las devoluciones}
+  context RetiroDeBicicleta
+  inv: self.devolucion <> null implies self.fechaYHora >= self.devolución.fechaYHora
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+\begin{ocl}{}
+\end{ocl}
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Diagramas de actividad                                                    %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
