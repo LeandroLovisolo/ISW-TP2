@@ -699,6 +699,11 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y relacion
   inv: self.devolucion <> null implies self.fechaYHora >= self.devolución.fechaYHora
 \end{ocl}
 
+\begin{ocl}{Los retiros corresponden a la misma bicicleta que las devoluciones}
+  context RetiroDeBicicleta
+  inv: self.devolucion <> null implies self.bicicleta = self.devolución.bicicleta
+\end{ocl}
+
 
 \subsubsection{Bicicletas}
 
