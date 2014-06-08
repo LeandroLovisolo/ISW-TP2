@@ -677,17 +677,45 @@ Pendiente.
   inv: self.devolucion <> null implies self.fechaYHora >= self.devolución.fechaYHora
 \end{ocl}
 
-\begin{ocl}{}
+
+\subsubsection{Bicicletas}
+
+\begin{ocl}{Los IDs de las bicicletas no son nulos}
+  context Bicicleta
+  inv: self.id <> null
 \end{ocl}
 
-\begin{ocl}{}
+\begin{ocl}{No hay otra bicicleta con el mismo ID}
+  context Bicicleta
+  inv: Bicicleta.allInstances()->forAll(b1, b2 | b1 <> b2 implies b1.id <> b2.id)
 \end{ocl}
 
-\begin{ocl}{}
+\begin{ocl}{Una bicicleta no puede estar en más de dos envíos (sin fecha de llegada)}
+  context Bicicleta
+  inv: self.transportes->select(t | t.fechaYHoraLlegada = null)->size() <= 1
 \end{ocl}
 
-\begin{ocl}{}
+\begin{ocl}{Una bicicleta está en una estación, en transporte o en posesión de un usuario}
+  context Bicicleta
+
+  int EstáEnEstacion: self.estación <> null and
+                      not self.transportes.exists(t |
+                          t.fechaYHoraLllegada = null and
+                          self.retiros->size() = self.devoluciones->size())
+
+  int EstáEnTransporte: self.estación = null and
+                        self.transportes.exists(t | t.fechaYHoraLllegada = null) and
+                        self.retiros->size() = self.devoluciones->size()
+
+  int EstáEnPosesiónDeUnUsuario: self.estación = null and
+                                 not self.transportes.exists(t |
+                                     t.fechaYHoraLllegada = null) and
+                                 self.retiros->size() = self.devoluciones->size() + 1
 \end{ocl}
+
+
+
+
 
 \begin{ocl}{}
 \end{ocl}
