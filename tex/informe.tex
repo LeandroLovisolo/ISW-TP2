@@ -285,9 +285,9 @@ Esta elección se debe a que la distribución automática propone una manera má
 \end{usecase}
 \begin{usecasesteps}
   \ucstep{El usuario ingresa su número de DNI, email, nombre y contraseña.}{}
-  \ucstep{El sistema verifica que no esté registrado otro usuario con el email o DNI ingresado.}{}
+  \ucstep{El sistema verifica que no esté registrado otro usuario con el email o DNI ingresado, que el campo DNI esté compuesto de números, que el email esté compuesto como usuario@dominio y que el nombre y la contraseña no se hayan dejado en blanco.}{}
   \ucstep{El sistema guarda los datos ingresados.}
-         {\ucalt{Si los datos ingresados ya existían, mostrar que no es posible realizar el registro, y volver a 1.}}
+         {\ucalt{Si los datos ingresados ya existían o fueron ingresados de manera errónea, mostrar que no es posible realizar el registro, y volver a 1.}}
   \ucstep{El sistema muestra al usuario que el registro se realizó correctamente.}{}
   \ucstep{El sistema autentica al usuario.}{}
   \ucstep{Si lo desea, el usuario puede clickear un enlace para consultar sus multas pendientes. Es extendido por {\bf CU 4}.}{}
@@ -650,7 +650,7 @@ El personal de la estación B ingresa los 5 IDs de las bicicletas que le llegaro
 
 \diagramah{conceptual}
 
-A continuación realizaremos aclaraciones sobre algunas de las clases y relaciones presentadas previamente:
+A continuación realizaremos aclaraciones sobre algunas de las clases y asociaciones presentadas previamente:
 
 \begin{description}
   \item[Solicitud de Bicicleta:] Representa una solicitud que puede ser realizada por cualquier persona (registrada o no) en el sistema. Observar que puede tener 0 o 1 retiros, porque la solicitud puede ser aceptada o no.
@@ -998,7 +998,21 @@ Cabe aclarar que estas no son todas las penalizaciones posibles, sino que son ú
 
 \section{Máquinas de Estado}
 
-\subsection{Penalizaciones} \label{fsm:penalizaciones}
+
+\subsection{Bicicleta}
+
+\diagramav{fsm-bicicleta}
+
+
+\subsection{Distribución de bicicletas}
+
+\diagramav{fsm-distribucion-de-bicicletas}
+
+
+\subsection{Penalizaciones}
+\label{fsm:penalizaciones}
+
+\diagramav{fsm-penalizaciones}
 
 
 \end{document}
