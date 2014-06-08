@@ -608,6 +608,32 @@ El personal de la estación B ingresa los 5 IDs de las bicicletas que le llegaro
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
+\begin{usecase}
+  \ucname{Recibiendo mail que informa bicicleta robada}
+  \ucpre{True}
+  \ucpost{El personal del gobierno se entera de que una bicicleta fue robada y del responsable}
+  \ucactor{Personal del gobierno}
+\end{usecase}
+\begin{usecasesteps}
+  \ucstep{El sistema envía mail al personal del gobierno informando el ID de una bicicleta que fue retenida por un usuario por más
+  de 24hs. Le indica también el nombre, el DNI y el mail del usuario que la retiró por última vez.}{}
+  \ucstep{El personal del gobierno recibe el mail.}{}
+  \ucstep{Fin caso de uso.}{}
+\end{usecasesteps}
+
+\begin{usecase}
+  \ucname{Recibiendo mail que informa que la bicicleta robada fue devuelta}
+  \ucpre{True}
+  \ucpost{El personal del gobierno se entera de que una bicicleta anteriormente reportada como robada ya fue devuelta}
+  \ucactor{Personal del gobierno}
+\end{usecase}
+\begin{usecasesteps}
+  \ucstep{El sistema envía mail al personal del gobierno informando el ID de una bicicleta que fue retenida por un usuario por más
+  de 24hs y ya fue devuelta. Le indica también el nombre, el DNI y el mail del usuario que la retiró por última vez y del usuario que
+  la devolvió (sólo en el caso que existiera esta información).}{}
+  \ucstep{El personal del gobierno recibe el mail.}{}
+  \ucstep{Fin caso de uso.}{}
+\end{usecasesteps}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Modelo conceptual                                                         %%
