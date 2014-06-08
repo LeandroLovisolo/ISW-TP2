@@ -225,6 +225,16 @@ Utilizaremos el diagrama del modelo de casos de uso para detallar la interacció
 Por último, nos valeremos de diagramas de actividades y FSM para brindar detalle tanto a las interacciones entre agentes como a eventos específicos como las penalizaciones.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Diferencias con especificaciones anteriores                               %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Diferencias con especificaciones anteriores}
+COMPLETAR CON EL DOCS
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Desarrollo                                                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -550,14 +560,15 @@ El personal de la estación B ingresa los 5 IDs de las bicicletas que le llegaro
               \end{itemize}
             }
             \item{
-              Información por semana (de las últimas 4 semanas completadas):
+              Información de los últimos 7 días:
               \begin{itemize}[itemsep=-3pt, topsep=-2pt]
-                \item Promedio de bicicletas retiradas por hora en estaciones céntricas.
-                \item Promedio de bicicletas retiradas por hora en estaciones periféricas.
-                \item Promedio de bicicletas solicitadas (retiradas y no retiradas) por hora en estaciones céntricas.
-                \item Promedio de bicicletas solicitadas por hora en estaciones periféricas.
-                \item Las 5 estaciones con más solicitudes en total.
-                \item Las 5 estaciones con menos solicitudes en total.
+                \item Por cada estación:
+		    \begin{itemize}[itemsep=-3pt, topsep=0pt]
+		      \item Promedio de bicicletas solicitadas (retiradas y no retiradas) en hora pico.
+		      \item Promedio de bicicletas solicitadas fuera de hora pico.
+		    \end{itemize}
+                \item Las 5 estaciones con mayor promedio en hora pico.
+                \item Las 5 estaciones con mayor promedio fuera de hora pico.
               \end{itemize}
             }
           \end{itemize}
