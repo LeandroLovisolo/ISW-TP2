@@ -761,17 +761,20 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y relacion
 
 \begin{ocl}{Una bicicleta está en una estación, en transporte o en posesión de un usuario}
   context Bicicleta
-  int EstáEnEstacion: self.estación <> null and
-                      not self.transportes.exists(t |
-                          t.fechaYHoraLllegada = null and
-                          self.retiros->size() = self.devoluciones->size())
-  int EstáEnTransporte: self.estación = null and
-                        self.transportes.exists(t | t.fechaYHoraLllegada = null) and
-                        self.retiros->size() = self.devoluciones->size()
-  int EstáEnPosesiónDeUnUsuario: self.estación = null and
-                                 not self.transportes.exists(t |
-                                     t.fechaYHoraLllegada = null) and
-                                 self.retiros->size() = self.devoluciones->size() + 1
+  inv: -- Está en una estación
+       (self.estación <> null and not self.transportes.exists(t |
+           t.fechaYHoraLllegada = null and
+           self.retiros->size() = self.devoluciones->size())) or
+
+       -- Está en transporte
+       (self.estación = null and
+        self.transportes->exists(t | t.fechaYHoraLllegada = null) and
+        self.retiros->size() = self.devoluciones->size()) or
+
+       -- Está en posesión de un usuario
+       (self.estación = null and
+        not self.transportes->exists(t | t.fechaYHoraLllegada = null) and
+        self.retiros->size() = self.devoluciones->size() + 1)
 \end{ocl}
 
 
