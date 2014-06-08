@@ -697,16 +697,13 @@ Pendiente.
 
 \begin{ocl}{Una bicicleta está en una estación, en transporte o en posesión de un usuario}
   context Bicicleta
-
   int EstáEnEstacion: self.estación <> null and
                       not self.transportes.exists(t |
                           t.fechaYHoraLllegada = null and
                           self.retiros->size() = self.devoluciones->size())
-
   int EstáEnTransporte: self.estación = null and
                         self.transportes.exists(t | t.fechaYHoraLllegada = null) and
                         self.retiros->size() = self.devoluciones->size()
-
   int EstáEnPosesiónDeUnUsuario: self.estación = null and
                                  not self.transportes.exists(t |
                                      t.fechaYHoraLllegada = null) and
@@ -717,8 +714,8 @@ Pendiente.
 \subsubsection{Orden de transporte}
 
 \begin{ocl}{Los IDs de las ordenes de transporte nunca son null}
-  context Orden de Transporte
-  self.id <> null
+  context OrdenDeTransporte
+  inv: self.id <> null
 \end{ocl}
 
 \begin{ocl}{Toda orden de transporte tiene un ID distinto de los otros}
@@ -729,7 +726,7 @@ Pendiente.
 
 \begin{ocl}{Una orden de transporte no puede tener el mismo origen que destino}
   context OrdenDeTransporte
-  self.orígen <> self.destino
+  inv: self.orígen <> self.destino
 \end{ocl}
 
 
@@ -742,7 +739,7 @@ Pendiente.
 
 \begin{ocl}{Los envíos siempre existen con fecha de inicio}
   context Envío
-  self.fechaYHoraSalida <> null
+  inv: self.fechaYHoraSalida <> null
 \end{ocl}
 
 \begin{ocl}{No hay solapamientos en envíos por cada bicicleta}
@@ -761,57 +758,80 @@ Pendiente.
 \end{ocl}
 
 
+\subsubsection{Usuarios}
 
-
-
-
-
-
-
-
-
-
-
-
-\begin{ocl}{}
+\begin{ocl}{Ningún campo de usuarios puede ser Null}
+  context Usuario
+  inv: self.dni <> null and
+       self.nombre <> null and
+       self.email <> null and
+       self.email <> null and
+       self.clave <> null
 \end{ocl}
 
-\begin{ocl}{}
+\begin{ocl}{No existen usuarios con el mismos DNI y mail}
+  context Usuario
+  inv: Usuario.allInstances()->forAll(u1, u2 |
+           u1 <> u2 implies (u1.dni <> u2.dni and u1.email <> u2.email))
 \end{ocl}
 
-\begin{ocl}{}
+
+\subsubsection{Estaciones}
+
+\begin{ocl}{Las bicicletas reservadas concuerdan con la cantidad de bicicletas reservadas para envíos en las órdenes de transporte}
+  context Estación
+  inv: self.órdenesRetiro->select(e | e.envío = null)
+                         ->collect(e.cantBicis)
+                         ->sum() = self.cantBicisReservadas
 \end{ocl}
 
-\begin{ocl}{}
+\begin{ocl}{El stock más la cantidad de bicis reservadas es igual a la cantidad de bicicletas en la estación}
+  context Estación
+  inv: self.stock + self.cantBicisReservadas = self.bicicletas->size()
 \end{ocl}
 
-\begin{ocl}{}
+\begin{ocl}{Las estaciones no tienen el mismo nombre o dirección}
+  context Estación
+  inv: Estación.allInstances()->forAll(e1, e2 |
+           (e1 <> e2) implies (e1.nombre <> e2.nombre and e1.dirección <> e2.dirección))
 \end{ocl}
 
-\begin{ocl}{}
+\begin{ocl}{Demanda promedio en hora pico y hora no-pico}
+  context Estación
+  inv: self.estadísticas.promedioHoraPico = 
+       self.personal.solicitudes
+           ->select(fechaYHora->dia >= today()->dia - 7 and
+                    fechaYHora->hora >= 17 and
+                    fechaYHora->hora <= 20)
+           ->size() / 7
+  inv: self.estadísticas.promedioHoraNoPico = 
+       self.personal.solicitudes
+           ->select(fechaYHora->dia >= today()->dia - 7 and
+                    fechaYHora->hora < 17 or
+                    fechaYHora->hora > 20)
+           ->size() / 7
 \end{ocl}
 
-\begin{ocl}{}
+\begin{ocl}{Distribución}
+  context Estación
+  inv: self.distribución.horaNoPico =
+           Bicicleta.allInstances()->size() /
+           Estación.allInstances()->size()
+  inv: self.distribución.horaPico =
+           (if self.oclIsTypeOf(EstaciónPeriférica) then
+               self.estadísticas.promedioHoraPico * 0.25
+           else
+               self.estadísticas.promedioHoraPico
+           endif) /
+           Estación.allInstances()
+               ->collect(if oclIsTypeOf(EstaciónPeriférica) then
+                             estadísticas.promedioHoraPico * 0.25
+                         else
+                             estadísticas.promedioHoraPico
+                         endif)
+               ->sum() *
+           Bicicleta.allInstances()->size()
 \end{ocl}
-
-\begin{ocl}{}
-\end{ocl}
-
-\begin{ocl}{}
-\end{ocl}
-
-\begin{ocl}{}
-\end{ocl}
-
-\begin{ocl}{}
-\end{ocl}
-
-\begin{ocl}{}
-\end{ocl}
-
-\begin{ocl}{}
-\end{ocl}
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
