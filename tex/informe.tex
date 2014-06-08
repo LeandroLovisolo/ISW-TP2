@@ -621,6 +621,27 @@ Pendiente.
                p.fechaCreación = self.fechaYHora)
 \end{ocl}
 
+\begin{ocl}{Si existe una devolución con otro usuario, hay multa para el usuario que la retiró}
+  context DevoluciónDeBicicleta
+  inv: (self.usuario <> self.retiro.usuario and self.usuario <> null) implies
+           self.retiro.usuario.penalizaciones->exists(p |
+               p.tipo = BiciDevueltaPorOtraPersona)
+\end{ocl}
+
+\begin{ocl}{Si existe un retiro de bicicleta donde ya pasó más de una hora, hay una multa (automática)}
+  context RetiroDeBicicleta
+  inv: (self.devolución = null and today() >= self.fechaYHora + 1h) implies
+           self.usuario.penalizaciones->exists(p |
+               (p.fechaCreación = self.fechaYHora + 1h) and
+               p.tipo = PasoUnaHoraDesdeRetiro)
+\end{ocl}
+
+\begin{ocl}{Los pagos ocurren en una fecha después de la penalización}
+  context Penalización
+  inv: self.pago <> null implies self.fechaCreación <= self.pago.fechaPago
+\end{ocl}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Diagramas de actividad                                                    %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -628,7 +649,7 @@ Pendiente.
 
 \section{Diagramas de actividad}
 
-\subsection{Penalización}
+\subsection{Penalizaciones}
 
 Este diagrama describe la asignación de penalizaciones ante la devolución de una bicicleta. Las reglas de penalización son las siguientes:
 \begin{itemize}
