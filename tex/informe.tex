@@ -589,29 +589,7 @@ El personal de la estación B ingresa los 5 IDs de las bicicletas que le llegaro
 
 \subsection{Modelo}
 
-
-A continuación realizaremos aclaraciones sobre algunas de las clases y relaciones presentadas previamente:
-\begin{description}
- \item[Solicitud de Bicicleta:] Representa una solicitud que puede ser realizada por cualquier persona (registrada o no) en el sistema. Observar
- que puede tener 0 o 1 retiros, porque la solicitud puede ser aceptada o no.
- \item[Retiro de Bicicleta:] Si una solicitud es aceptada por el sistema, entonces se realiza el retiro (en este caso el ``Usuario''
- asociado es el que retira la bicicleta y también el que realizó la solicitud previamente). Observar que puede tener 0 o 1 devoluciones porque
- la bicicleta podría no ser devuelta.
- \item[Devolución de Bicicleta:] Representa la devulución de una bicicleta. Está asociada al retiro correspondiente a la misma bicicleta. Puede
- ser devuelta por una persona que no sea usuario o por un usuario registrado. Si es usuario, podría ser tanto el mismo usuario que la retiró como
- un usuario que había retirado otra bicicleta y la intercambió con el que la retiró. La bicicleta asociada a la devolución es la misma asociada
- al retiro, pero incluímos esta información redundante para simplificar la lectura del diagrama y de los invariantes en OCL.
- \item[Orden de Transporte:] Representa la orden enviada por el sistema a la empresa de transporte para movilizar bicicletas (ver {\bf CU 18}).
- Tiene una estación orígen, una estación destino y puede tener o no un envío.
- \item[Envío:] Representa el envío de las bicicletas según una orden de transporte. Tiene una fecha de salida y, si ya llegó a destino, una fecha de llegada. Ambas fechas se corresponden con el momento en que el envío/recepción es registrado (ver {\bf CU 10} y {\bf CU 11}). El envío también tiene
- asociada la lista de bicicletas que transporta (que son elegidas en la estación orígen de la orden de transporte).
- \item[Estadísticas:] Son las estadísticas que se calculan por estación, correspondientes a los datos de los últimos 7 días. Ver detalles de los cálculos en OCL.
- \item[Distribución:] Por cada estación, indica la cantidad de bicicletas que debe tener cuando se realiza la distribución en hora pico y por
- la mañana (hora no pico). Observar que esto \emph{no} es la cantidad de bicicletas que el sistema le enviará sino la cantidad que debería tener
- luego del envío.
-\end{description}
-
-
+Pendiente.
 
 
 \subsection{OCL}
@@ -625,6 +603,29 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y relacion
        self.tipoDePenalización <> null and
        self.multa <> null and
        (self.pago <> null implies self.pago.fechaPago <> null)
+\end{ocl}
+
+\begin{ocl}{Si hay una penalización en mal estado, existe una devolución en mal estado}
+  context Penalización
+  inv: self.tipo = DevoluciónEnMalEstado implies self.usuario.devoluciones->exists(d |
+           d.enBuenEstado = false and d.fechaYHora = self.fechaCreación)
+\end{ocl}
+
+\begin{ocl}{Si hay una multa por devolución por otra persona, existe una devolución sin usuario o con un usuario distinto}
+  context Penalización
+  inv: self.tipo = BiciDevueltaPorOtraPersona implies
+           self.usuario.retiros->select(r | r.devolución <> null)
+                               ->exists(r | (r.devolución.usuario = null or
+                                             r.devolución.usuario != r.usuario) and
+                                            r.devolución.fechaYHora = self.fechaCreación)
+\end{ocl}
+
+\begin{ocl}{Si hay una multa por pasar más de una hora, existe un retiro sin devolución por más de una hora}
+  context Penalización
+  inv: self.tipo = PasoUnaHoraDesdeRetiro implies self.usuario.retiros->exists(r |
+           (r.devolución = null or (r.devolución <> null and
+                                    r.devolución.fechaYHora >= r.fechaYHora + 1h)) and
+           self.fechaCreación = r.fechaYHora + 1h)
 \end{ocl}
 
 \begin{ocl}{Para cada devolución en mal estado existe una penalización}
@@ -697,11 +698,6 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y relacion
 \begin{ocl}{Los retiros tienen fecha mayor o igual a la de las devoluciones}
   context RetiroDeBicicleta
   inv: self.devolucion <> null implies self.fechaYHora >= self.devolución.fechaYHora
-\end{ocl}
-
-\begin{ocl}{Los retiros corresponden a la misma bicicleta que las devoluciones}
-  context RetiroDeBicicleta
-  inv: self.devolucion <> null implies self.bicicleta = self.devolución.bicicleta
 \end{ocl}
 
 
