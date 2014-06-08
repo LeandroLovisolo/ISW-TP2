@@ -636,26 +636,19 @@ Pendiente.
                p.tipo = DevoluciónEnMalEstado)
 \end{ocl}
 
-\begin{ocl}{Si existe una devolución sin usuario, hay multa por devolución de otro usuario}
-  context DevoluciónDeBicicleta
-  inv: self.usuario = null implies
+\begin{ocl}{Si existe una devolución sin usuario o con un usuario distinto, hay multa por devolución de otro usuario}
+  context Devolución de Bicicleta
+  inv: (self.usuario = null or self.retiro.usuario <> self.usuario) implies
            self.retiro.usuario.penalizaciones->exists(p |
-               p.tipo = BiciDevueltaPorOtraPersona and
-               p.fechaCreación = self.fechaYHora)
-\end{ocl}
-
-\begin{ocl}{Si existe una devolución con otro usuario, hay multa para el usuario que la retiró}
-  context DevoluciónDeBicicleta
-  inv: (self.usuario <> self.retiro.usuario and self.usuario <> null) implies
-           self.retiro.usuario.penalizaciones->exists(p |
-               p.tipo = BiciDevueltaPorOtraPersona)
+               p.tipo = BiciDevueltaPorOtraPersona and p.fechaCreación = self.fechaYHora)
 \end{ocl}
 
 \begin{ocl}{Si existe un retiro de bicicleta donde ya pasó más de una hora, hay una multa (automática)}
   context RetiroDeBicicleta
-  inv: (self.devolución = null and today() >= self.fechaYHora + 1h) implies
+  inv: (self.devolución = null and today() >= self.fechaYHora + 1h) or
+       (self.devolución <> null and self.fechaYHora <= self.devolución.fechaYHora + 1h) implies
            self.usuario.penalizaciones->exists(p |
-               (p.fechaCreación = self.fechaYHora + 1h) and
+               p.fechaCreación = self.fechaYHora + 1h and
                p.tipo = PasoUnaHoraDesdeRetiro)
 \end{ocl}
 
