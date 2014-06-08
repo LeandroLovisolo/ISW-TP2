@@ -714,14 +714,30 @@ Pendiente.
 \end{ocl}
 
 
+\subsubsection{Orden de transporte}
 
-
-
-\begin{ocl}{}
+\begin{ocl}{Los IDs de las ordenes de transporte nunca son null}
+  context Orden de Transporte
+  self.id <> null
 \end{ocl}
 
-\begin{ocl}{}
+\begin{ocl}{Toda orden de transporte tiene un ID distinto de los otros}
+  context OrdenDeTransporte
+  inv: OrdenDeTransporte.allInstances()->forAll(o1, o2 |
+           o1 <> o2 implies o1.id <> o2.id)
 \end{ocl}
+
+\begin{ocl}{Una orden de transporte no puede tener el mismo origen que destino}
+  context OrdenDeTransporte
+  self.orígen <> self.destino
+\end{ocl}
+
+
+
+
+
+
+
 
 \begin{ocl}{}
 \end{ocl}
