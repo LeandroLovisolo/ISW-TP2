@@ -733,23 +733,45 @@ Pendiente.
 \end{ocl}
 
 
+\subsubsection{Envíos}
 
-
-
-
-
-
-\begin{ocl}{}
+\begin{ocl}{Los envíos tienen fecha de llegada mayor a la fecha de salida en el caso de que hayan llegado o null si no llegaron a destino}
+  context Envío
+  inv: self.fechaYHoraLLegada = null or self.fechaYHoraSalida < self.fechaYHoraLlegada
 \end{ocl}
 
-\begin{ocl}{}
+\begin{ocl}{Los envíos siempre existen con fecha de inicio}
+  context Envío
+  self.fechaYHoraSalida <> null
 \end{ocl}
 
-\begin{ocl}{}
+\begin{ocl}{No hay solapamientos en envíos por cada bicicleta}
+  context Bicicleta
+  inv: self.transportes->forAll(e1, e2 |
+           (e1 <> e2 and e1.fechaYHoraLlegada <> null and e2.fechaYHoraLlegada <> null) implies
+               ((e1.fechaYHoraSalida  < e2.fechaYHoraSalida implies
+                 e1.fechaYHoraLlegada < e2.fechaYHoraSalida) and
+                (e1.fechaYHoraSalida  > e2.fechaYHoraSalida implies
+                 e1.fechaYHoraLlegada > e2.fechaYHoraSalida)))
 \end{ocl}
 
-\begin{ocl}{}
+\begin{ocl}{Debe de haber la cantidad especificada de bicicletas por la orden en el envío}
+  context Envío
+  inv: self.orden.cantBicis = self.bicicletas->size()
 \end{ocl}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \begin{ocl}{}
 \end{ocl}
