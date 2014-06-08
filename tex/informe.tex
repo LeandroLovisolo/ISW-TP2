@@ -216,22 +216,35 @@ Vita, Sebastián        & 149/11 & sebastian\_vita@yahoo.com.ar\\
 
 \section{Introducción}
 
+En el siguiente informe, mostraremos en detalle nuevos aspectos y puntos de vista del proyecto de bicisendas de Mar Chiquita.
+
+Mostraremos cómo se relacionan los conceptos del proyecto mediante un diagrama de modelo conceptual y mostraremos mediante la utilización de OCL los invariantes que se aplican sobre el mismo.
+
+Utilizaremos el diagrama del modelo de casos de uso para detallar la interacción de tanto usuarios como el personal autorizado para la utilización del software y describiremos cada caso de uso a continuación del mismo.
+
+Por último, nos valeremos de diagramas de actividades y FSM para brindar detalle tanto a las interacciones entre agentes como a eventos específicos como las penalizaciones.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Desarrollo                                                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 \section{Desarrollo}
+Debido a que la continuidad del proyecto requería de la elección de una de las alternativas propuestas anteriormente para la distribución de bicicletas en hora pico, elegimos la propuesta de que las distribuciones se realicen de manera automática utilizando los datos estadísticos recaudados por el sistema.
+
+Esta elección se debe a que la distribución automática propone una manera más simple y precisa, ya que no se requiere de nadie calculando o decidiendo para cada estación, que cantidad de bicicletas le toca a cada una, permitiendo así, un mejor uso de los recursos disponibles.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Casos de uso                                                              %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
+\newpage
 \section{Casos de uso}
 
+\subsection{Diagrama}
+\includegraphics[width=16cm]{diagramas/cu.pdf}
+
+\subsection{Detalle}
 %%%%% Recibiendo mail de penalización %%%%%
 
 \begin{usecase}
@@ -587,9 +600,30 @@ El personal de la estación B ingresa los 5 IDs de las bicicletas que le llegaro
 \section{Modelo conceptual}
 
 
-\subsection{Modelo}
+\subsection{Diagrama}
 
-Pendiente.
+\includegraphics[height=16cm,angle=90]{diagramas/conceptual.pdf}
+
+A continuación realizaremos aclaraciones sobre algunas de las clases y relaciones presentadas previamente:
+\begin{description}
+ \item[Solicitud de Bicicleta:] Representa una solicitud que puede ser realizada por cualquier persona (registrada o no) en el sistema. Observar
+ que puede tener 0 o 1 retiros, porque la solicitud puede ser aceptada o no.
+ \item[Retiro de Bicicleta:] Si una solicitud es aceptada por el sistema, entonces se realiza el retiro (en este caso el ``Usuario''
+ asociado es el que retira la bicicleta y también el que realizó la solicitud previamente). Observar que puede tener 0 o 1 devoluciones porque
+ la bicicleta podría no ser devuelta.
+ \item[Devolución de Bicicleta:] Representa la devulución de una bicicleta. Está asociada al retiro correspondiente a la misma bicicleta. Puede
+ ser devuelta por una persona que no sea usuario o por un usuario registrado. Si es usuario, podría ser tanto el mismo usuario que la retiró como
+ un usuario que había retirado otra bicicleta y la intercambió con el que la retiró. La bicicleta asociada a la devolución es la misma asociada
+ al retiro, pero incluímos esta información redundante para simplificar la lectura del diagrama y de los invariantes en OCL.
+ \item[Orden de Transporte:] Representa la orden enviada por el sistema a la empresa de transporte para movilizar bicicletas (ver {\bf CU 18}).
+ Tiene una estación orígen, una estación destino y puede tener o no un envío.
+ \item[Envío:] Representa el envío de las bicicletas según una orden de transporte. Tiene una fecha de salida y, si ya llegó a destino, una fecha de llegada. Ambas fechas se corresponden con el momento en que el envío/recepción es registrado (ver {\bf CU 10} y {\bf CU 11}). El envío también tiene
+ asociada la lista de bicicletas que transporta (que son elegidas en la estación orígen de la orden de transporte).
+ \item[Estadísticas:] Son las estadísticas que se calculan por estación, correspondientes a los datos de los últimos 7 días. Ver detalles de los cálculos en OCL.
+ \item[Distribución:] Por cada estación, indica la cantidad de bicicletas que debe tener cuando se realiza la distribución en hora pico y por
+ la mañana (hora no pico). Observar que esto \emph{no} es la cantidad de bicicletas que el sistema le enviará sino la cantidad que debería tener
+ luego del envío.
+\end{description}
 
 
 \subsection{OCL}
