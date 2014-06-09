@@ -244,8 +244,8 @@ Esta elección se debe a que la distribución automática propone una manera má
 \section{Diferencias con especificaciones anteriores}
 A continuación listaremos algunos cambios realizados a la solución propuesta con respecto a las especificaciones presentadas previamente.
 \begin{itemize}
- \item Cuando el empleado de estación consulta el monto (de multa) que debe pagar un usuario, ingresa en el sistema el DNI de este último. Aquí agregamos que el sistema valide ese DNI e indique por pantalla que hubo un error si el DNI no pertenecía a ningún usuario registrado.
- \item Las operaciones de registro (no de consulta) que pueden ser realizadas a través de un radio requieren que un empleado de otra estación ingrese los datos al sistema. Para esto, fue necesario agregar que el empleado de estación ingrese el ID de la estación para realizar estas operaciones y así permitir que ingrese datos de otra estación. Además se agregó una validación de ese ID (debe corresponder a una estación registrada en el sistema).
+ \item Cuando el empleado de estación consulta el monto de una multa que debe ser pagada por un usuario, ingresa en el sistema el DNI de este último. Aquí agregamos que el sistema valide ese DNI e indique por pantalla que hubo un error si este no pertenecía a ningún usuario registrado.
+ \item Las operaciones de registro (no de consulta) que pueden ser realizadas a través de un radio requieren que un empleado de otra estación ingrese los datos al sistema. Para esto, fue necesario agregar la posibilidad de que el empleado de estación ingrese el ID de ésta para realizar dichas operaciones y así permitir que ingrese datos de otra estación. Además se agregó una validación de ese ID (debe corresponder a una estación registrada en el sistema).
  \item Cuando sale o llega un camión con bicicletas, el empleado de estación registra los IDs de las bicicletas que envía o recibe. Las bicicletas que llegan deben coincidir con las que salieron. Pero podría suceder que en la estación origen se informaran ciertas bicicletas pero se enviaran otras. Para poder corregir este error, debimos agregar:
  \begin{itemize}
   \item Las órdenes de transporte de bicicletas tienen un ID para poder identificar qué envío es el que se está informando en la estación destino, y así asociarlo con la estación origen. Este ID  es validado (debe corresponder a una orden de transporte registrada).
@@ -258,11 +258,11 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
  \begin{itemize}
   \item Consultar que usuarios estan registrados.
   \item Consultar que usuarios estan penalizados.
-  \item Cuales son las 5 estaciones con más solicitudes en hora pico.
-  \item Cuales son las 5 con más solicitudes fuera de hora pico.
+  \item Averiguar cuales son las 5 estaciones con más solicitudes en hora pico.
+  \item Averiguar cuales son las 5 estaciones con más solicitudes fuera de hora pico.
  \end{itemize}
  \item El gobierno ahora puede invalidar penalizaciones de determinado usuario.
- \item Cuando un usuario no devuelve la bicicleta por más de 24hs si informa al gobierno. Pero si la bicicleta es devuelta, agregamos un nuevo aviso al gobierno indicando esto.
+ \item Cuando un usuario no devuelve la bicicleta por más de 24hs se informa al gobierno. Pero si la bicicleta es devuelta, agregamos un nuevo aviso al gobierno indicando esto.
 \end{itemize}
 
 
