@@ -60,12 +60,12 @@
 
 
 %%%%%%%%%% Insertar diagrama - Inicio %%%%%%%%%%
-\newcommand{\diagramav}[1]{
-  \includegraphics[type=pdf,ext=.pdf,read=.pdf,width=16cm]{diagramas/#1}
+\newcommand{\diagramav}[1]{%
+  \includegraphics[type=pdf,ext=.pdf,read=.pdf,width=16cm]{diagramas/#1}%
 }
 
-\newcommand{\diagramah}[1]{
-  \includegraphics[type=pdf,ext=.pdf,read=.pdf,height=16cm,angle=90]{diagramas/#1}
+\newcommand{\diagramah}[1]{%
+  \includegraphics[type=pdf,ext=.pdf,read=.pdf,height=16cm,angle=90]{diagramas/#1}%
 }
 %%%%%%%%%% Insertar diagrama - Fin %%%%%%%%%%
 
@@ -274,10 +274,18 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 %% Casos de uso                                                              %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
 \newpage
+
+
 \section{Casos de uso}
+
+
 \subsection{Diagrama}
-\includegraphics[type=pdf,ext=.pdf,read=.pdf,width=16cm]{diagramas/cu}
+
+\diagramav{cu}
+
+
 \subsection{Detalle}
 
 %%%%% Recibiendo mail de penalización %%%%%
