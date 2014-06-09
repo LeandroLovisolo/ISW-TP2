@@ -229,11 +229,12 @@ Por último, nos valeremos de diagramas de actividades y FSM para brindar detall
 %% Desarrollo                                                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
 \section{Desarrollo}
+
 Debido a que la continuidad del proyecto requería de la elección de una de las alternativas propuestas anteriormente para la distribución de bicicletas en hora pico, elegimos la propuesta de que las distribuciones se realicen de manera automática utilizando los datos estadísticos recaudados por el sistema.
 
 Esta elección se debe a que la distribución automática propone una manera más simple y precisa, ya que no se requiere de nadie calculando o decidiendo para cada estación, que cantidad de bicicletas le toca a cada una, permitiendo así, un mejor uso de los recursos disponibles.
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -242,7 +243,9 @@ Esta elección se debe a que la distribución automática propone una manera má
 
 
 \section{Diferencias con especificaciones anteriores}
+
 A continuación listaremos algunos cambios realizados a la solución propuesta con respecto a las especificaciones presentadas previamente.
+
 \begin{itemize}
  \item Cuando el empleado de estación consulta el monto de una multa que debe ser pagada por un usuario, ingresa en el sistema el DNI de este último. Aquí agregamos que el sistema valide ese DNI e indique por pantalla que hubo un error si este no pertenecía a ningún usuario registrado.
  \item Las operaciones de registro (no de consulta) que pueden ser realizadas a través de un radio requieren que un empleado de otra estación ingrese los datos al sistema. Para esto, fue necesario agregar la posibilidad de que el empleado de estación ingrese el ID de ésta para realizar dichas operaciones y así permitir que ingrese datos de otra estación. Además se agregó una validación de ese ID (debe corresponder a una estación registrada en el sistema).
@@ -420,7 +423,7 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
-Detallamos las actividades e interacciones que realizan los actores involucrados en el proceso que incluye a la utilización del caso de uso en el DA \ref{sec:da-entrega-bicicleta}.
+Detallamos las actividades e interacciones que realizan los actores involucrados en el proceso que incluye la utilización del caso de uso en el \textbf{DA Entrega de Bicicleta} \ref{sec:da-entrega-bicicleta}.
 \\
 
 %%%%% Registrando devolución de bicicleta %%%%%
@@ -441,6 +444,9 @@ Detallamos las actividades e interacciones que realizan los actores involucrados
   \ucstep{El sistema registra la devolución de la bicicleta, aumenta el stock y muestra que la devolución se realizó correctamente.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
+
+Detallamos las actividades e interacciones que realizan los actores involucrados en el proceso que incluye la utilización del caso de uso en el \textbf{DA Devolución de bicicleta} \ref{sec:da-devolucion-bicicleta}.
+\\
 
 %%%%% Registrando datos de bicicletas retiradas por la empresa de transporte %%%%%
 
@@ -465,6 +471,8 @@ Detallamos las actividades e interacciones que realizan los actores involucrados
   \ucstep{Fin caso de uso.}{}
   
 \end{usecasesteps}
+
+Detallamos las actividades e interacciones que realizan los actores involucrados en el proceso que incluye la utilización del caso de uso en el \textbf{DA Empresa de transporte: retiro de bicicletas} \ref{sec:da-transporte-retiro}.
 
 %%%%% Registrando datos de bicicletas recibidas de la empresa de transporte %%%%%
 
@@ -492,6 +500,8 @@ Detallamos las actividades e interacciones que realizan los actores involucrados
 {\underline{Aclaración de 7.1:}} Veamos cómo el sistema realiza la corrección con un ejemplo:
 Tenemos la estación A y la estación B. Llega un camión a la estación A con la orden de transportar 5 bicicletas desde allí hasta la estación B. El personal de la estación en A ingresa los 5 IDs (que corresponden a bicicletas en la estación A) y el sistema las valida. Luego le entrega al camión 5 bicicletas, de las cuales 3 son erróneas (no se corresponden con ninguno de los IDs ingresados). Luego el camión viaja y las entrega en la estación B.
 El personal de la estación B ingresa los 5 IDs de las bicicletas que le llegaron y el sistema rechaza 3 de ellas porque no coinciden con el registro de envío. Entonces el personal clickea “Omitir” y el sistema intercambia las ubicaciones de las 3 bicicletas que llegaron con las 3 que estaban registradas en el envío. Observar que las 3 que viajaron y que según el sistema estaban en la estación A, no podrán ser retiradas hasta que no se haga la corrección (ver paso 9 de {\bf CU 8}).
+
+Detallamos las actividades e interacciones que realizan los actores involucrados en el proceso que incluye la utilización del caso de uso en el \textbf{DA Empresa de transporte: entrega de bicicletas} \ref{sec:da-transporte-entrega}.
 
 %%%%% Autenticándose como administrador %%%%%
 
@@ -532,6 +542,8 @@ El personal de la estación B ingresa los 5 IDs de las bicicletas que le llegaro
   \ucstep{El sistema informa al personal los IDs de las bicicletas registradas.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
+
+Detallamos las actividades e interacciones que realizan los actores involucrados en el proceso que incluye la utilización del caso de uso en el \textbf{DA Agregar bicicletas al sistema} \ref{sec:da-agregar-bicicletas}.
 
 %%%%%% Registrando nueva estación %%%%%
 
@@ -619,6 +631,8 @@ El personal de la estación B ingresa los 5 IDs de las bicicletas que le llegaro
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
+Detallamos las actividades e interacciones que realizan los actores involucrados en el proceso que incluye la utilización del caso de uso en el \textbf{DA Justificar penalizaciones} \ref{sec:da-justificar-penalizacion}.
+
 %%%%% Recibiendo mail de instrucciones para movilización de bicicletas %%%%%
 
 \begin{usecase}
@@ -659,6 +673,7 @@ El personal de la estación B ingresa los 5 IDs de las bicicletas que le llegaro
   \ucstep{El personal del gobierno recibe el mail.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Modelo conceptual                                                         %%
@@ -962,12 +977,11 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y asociaci
 
 \subsection{Entrega de bicicleta}
 \label{sec:da-entrega-bicicleta}
-
 \diagramav{da-entrega-bicicleta}
 
 
 \subsection{Devolución de bicicleta}
-
+\label{sec:da-devolucion-bicicleta}
 \diagramav{da-devolucion-bicicleta}
 
 
@@ -989,6 +1003,7 @@ Cabe aclarar que estas no son todas las penalizaciones posibles, sino que son ú
 
 
 \subsection{Justificar penalizaciones}
+\label{sec:da-justificar-penalizacion}
 
 \diagramav{da-justificar-penalizacion}
 
@@ -999,16 +1014,19 @@ Cabe aclarar que estas no son todas las penalizaciones posibles, sino que son ú
 
 
 \subsection{Empresa de transporte: retiro de bicicletas}
+\label{sec:da-transporte-retiro}
 
 \diagramav{da-transporte-retiro}
 
 
 \subsection{Empresa de transporte: entrega de bicicletas}
+\label{sec:da-transporte-entrega}
 
 \diagramav{da-transporte-entrega}
 
 
 \subsection{Agregar bicicletas al sistema}
+\label{sec:da-agregar-bicicletas}
 
 \diagramav{da-agregar-bicicletas}
 
