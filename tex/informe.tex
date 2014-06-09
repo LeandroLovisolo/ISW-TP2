@@ -247,36 +247,25 @@ Esta elección se debe a que la distribución automática propone una manera má
 A continuación listaremos algunos cambios realizados a la solución propuesta con respecto a las especificaciones presentadas previamente.
 
 \begin{itemize}
-  \item Cuando el empleado de estación consulta el monto (de multa) que debe pagar un usuario, ingresa en el sistema el DNI de este último. Aquí agregamos que el sistema valide ese DNI e indique por pantalla que hubo un error si el DNI no pertenecía a ningún usuario registrado.
-
-  \item Las operaciones de registro (no de consulta) que pueden ser realizadas a través de un radio requieren que un empleado de otra estación ingrese los datos al sistema. Para esto, fue necesario agregar que el empleado de estación ingrese el ID de la estación para realizar estas operaciones y así permitir que ingrese datos de otra estación. Además se agregó una validación de ese ID (debe corresponder a una estación registrada en el sistema).
-
-  \item Cuando sale o llega un camión con bicicletas, el empleado de estación registra los IDs de las bicicletas que envía o recibe. Las bicicletas que llegan deben coincidir con las que salieron. Pero podría suceder que en la estación origen se informaran ciertas bicicletas pero se enviaran otras. Para poder corregir este error, debimos agregar:
-
-  \begin{itemize}
-    \item Las órdenes de transporte de bicicletas tienen un ID para poder identificar qué envío es el que se está informando en la estación destino, y así asociarlo con la estación origen. Este ID  es validado (debe corresponder a una orden de transporte registrada).
-
-    \item Agregamos una validación de IDs de bicicletas ingresadas en la estación destino para poder detectar los errores e informarlos.
-  \end{itemize}
-
-  \item Cuando el gobierno registra bicicletas nuevas en el sistema, puede hacerlo por cantidad (antes sólo podía ingresar de a una). Además el sistema le muestra los IDs asignados a las bicicletas nuevas para que el personal del gobierno pueda grabarlos en las bicicletas y se indica también la estación inicial de las bicicletas. Por último, el personal del gobierno se encarga ahora de la distribución de las nuevas bicicletas, eliminando el requerimiento de enviar un mail a la empresa de transporte.
-
-  \item Cuando el gobierno ingresa una nueva estación al sistema, agregamos la validación del nombre y dirección, para evitar estaciones duplicadas.
-
-  \item Cuando el gobierno elimina bicicletas del sistema, agregamos la validación del ID de la bicicleta (debe existir).
-
-  \item Cuando el gobierno consulta las estadísticas, ademas de poder consultar la demanda de cada estación, ahora puede:
-
-  \begin{itemize}
-    \item Consultar que usuarios estan registrados.
-    \item Consultar que usuarios estan penalizados.
-    \item Cuales son las 5 estaciones con más solicitudes en hora pico.
-    \item Cuales son las 5 con más solicitudes fuera de hora pico.
-  \end{itemize}
-
-  \item El gobierno ahora puede invalidar penalizaciones de determinado usuario.
-
-  \item Cuando un usuario no devuelve la bicicleta por más de 24hs si informa al gobierno. Pero si la bicicleta es devuelta, agregamos un nuevo aviso al gobierno indicando esto.
+ \item Cuando el empleado de estación consulta el monto de una multa que debe ser pagada por un usuario, ingresa en el sistema el DNI de este último. Aquí agregamos que el sistema valide ese DNI e indique por pantalla que hubo un error si este no pertenecía a ningún usuario registrado.
+ \item Las operaciones de registro (no de consulta) que pueden ser realizadas a través de un radio requieren que un empleado de otra estación ingrese los datos al sistema. Para esto, fue necesario agregar la posibilidad de que el empleado de estación ingrese el ID de ésta para realizar dichas operaciones y así permitir que ingrese datos de otra estación. Además se agregó una validación de ese ID (debe corresponder a una estación registrada en el sistema).
+ \item Cuando sale o llega un camión con bicicletas, el empleado de estación registra los IDs de las bicicletas que envía o recibe. Las bicicletas que llegan deben coincidir con las que salieron. Pero podría suceder que en la estación origen se informaran ciertas bicicletas pero se enviaran otras. Para poder corregir este error, debimos agregar:
+ \begin{itemize}
+  \item Las órdenes de transporte de bicicletas tienen un ID para poder identificar qué envío es el que se está informando en la estación destino, y así asociarlo con la estación origen. Este ID  es validado (debe corresponder a una orden de transporte registrada).
+  \item Agregamos una validación de IDs de bicicletas ingresadas en la estación destino para poder detectar los errores e informarlos.
+ \end{itemize}
+ \item Cuando el gobierno registra bicicletas nuevas en el sistema, puede hacerlo por cantidad (antes sólo podía ingresar de a una). Además el sistema le muestra los IDs asignados a las bicicletas nuevas para que el personal del gobierno pueda grabarlos en las bicicletas y se indica también la estación inicial de las bicicletas. Por último, el personal del gobierno se encarga ahora de la distribución de las nuevas bicicletas, eliminando el requerimiento de enviar un mail a la empresa de transporte.
+ \item Cuando el gobierno ingresa una nueva estación al sistema, agregamos la validación del nombre y dirección, para evitar estaciones duplicadas.
+ \item Cuando el gobierno elimina bicicletas del sistema, agregamos la validación del ID de la bicicleta (debe existir).
+ \item Cuando el gobierno consulta las estadísticas, ademas de poder consultar la demanda de cada estación, ahora puede:
+ \begin{itemize}
+  \item Consultar que usuarios estan registrados.
+  \item Consultar que usuarios estan penalizados.
+  \item Averiguar cuales son las 5 estaciones con más solicitudes en hora pico.
+  \item Averiguar cuales son las 5 estaciones con más solicitudes fuera de hora pico.
+ \end{itemize}
+ \item El gobierno ahora puede invalidar penalizaciones de determinado usuario.
+ \item Cuando un usuario no devuelve la bicicleta por más de 24hs se informa al gobierno. Pero si la bicicleta es devuelta, agregamos un nuevo aviso al gobierno indicando esto.
 \end{itemize}
 
 
@@ -997,7 +986,7 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y asociaci
 \diagramav{da-devolucion-bicicleta}
 
 
-\subsection{Penalizaciones}
+\subsection{Penalizaciones} \label{sec:da-penalizaciones}
 
 \diagramav{da-penalizaciones}
 
@@ -1049,20 +1038,31 @@ Cabe aclarar que estas no son todas las penalizaciones posibles, sino que son ú
 
 
 \section{Máquinas de Estado}
-
+Las máquinas de estado en las secciones siguientes están sincronizadas entre sí pero son presentadas en distintos ámbitos para resaltar los aspectos interesantes de cada caso.
 
 \subsection{Bicicleta}
 
+La siguiente máquina de estados representa a una bicicleta física (no la bicicleta lógica cuyos movimientos registra el sistema).
+Observar que si es robada o perdida, pasa a un estado en \emph{deadlock}, ya que es descartada y eliminada del sistema.
+
 \diagramav{fsm-bicicleta}
 
-
 \subsection{Distribución de bicicletas}
+
+La siguiente máquina de estados representa al subsistema que gestiona la temporización de la distribución de bicicletas.
 
 \diagramav{fsm-distribucion-de-bicicletas}
 
 
 \subsection{Penalizaciones}
 \label{fsm:penalizaciones}
+
+Las dos máquinas de estado siguientes representan:
+\begin{description}
+ \item[Sistema:] Es el subsistema que gestiona las penalizaciones de tiempo para un usuario dado.
+ \item[Usuario:] Es el usuario asociado al subsistema mencionado.
+\end{description}
+En sincronía especifican cómo un usuario será penalizado si retiene la bicicleta demasiado tiempo y las acciones que toma el sistema ante ello. Observar que las penalizaciones ligadas a la devolución de la bicicleta no están especificadas en este diagrama (ver {\bf DA: ``Penalizaciones''} \ref{sec:da-penalizaciones}).
 
 \diagramav{fsm-penalizaciones}
 
