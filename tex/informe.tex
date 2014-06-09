@@ -978,7 +978,7 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y asociaci
 \diagramav{da-devolucion-bicicleta}
 
 
-\subsection{Penalizaciones}
+\subsection{Penalizaciones} \label{sec:da-penalizaciones}
 
 \diagramav{da-penalizaciones}
 
@@ -1030,20 +1030,31 @@ Cabe aclarar que estas no son todas las penalizaciones posibles, sino que son ú
 
 
 \section{Máquinas de Estado}
-
+Las máquinas de estado en las secciones siguientes están sincronizadas entre sí pero son presentadas en distintos ámbitos para resaltar los aspectos interesantes de cada caso.
 
 \subsection{Bicicleta}
 
+La siguiente máquina de estados representa a una bicicleta física (no la bicicleta lógica cuyos movimientos registra el sistema).
+Observar que si es robada o perdida, pasa a un estado en \emph{deadlock}, ya que es descartada y eliminada del sistema.
+
 \diagramav{fsm-bicicleta}
 
-
 \subsection{Distribución de bicicletas}
+
+La siguiente máquina de estados representa al subsistema que gestiona la temporización de la distribución de bicicletas.
 
 \diagramav{fsm-distribucion-de-bicicletas}
 
 
 \subsection{Penalizaciones}
 \label{fsm:penalizaciones}
+
+Las dos máquinas de estado siguientes representan:
+\begin{description}
+ \item[Sistema:] Es el subsistema que gestiona las penalizaciones de tiempo para un usuario dado.
+ \item[Usuario:] Es el usuario asociado al subsistema mencionado.
+\end{description}
+En sincronía especifican cómo un usuario será penalizado si retiene la bicicleta demasiado tiempo y las acciones que toma el sistema ante ello. Observar que las penalizaciones ligadas a la devolución de la bicicleta no están especificadas en este diagrama (ver {\bf DA: ``Penalizaciones''} \ref{sec:da-penalizaciones}).
 
 \diagramav{fsm-penalizaciones}
 
