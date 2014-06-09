@@ -383,6 +383,8 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
   \ucstep{Fin caso de uso}{}
 \end{usecasesteps}
 
+Detallamos las actividades e interacciones que realizan los actores involucrados en el proceso que incluye la utilización del caso de uso en el \textbf{DA Pago de multas} \ref{sec:da-pago-de-multas}.
+
 %%%%% Registrando pago de multa %%%%%
 
 \begin{usecase}
@@ -397,6 +399,8 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
   \ucstep{El sistema informa que la acción fue realizada exitosamente.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
+
+Detallamos las actividades e interacciones que realizan los actores involucrados en el proceso que incluye la utilización del caso de uso en el \textbf{DA Pago de multas} \ref{sec:da-pago-de-multas}.
 
 %%%%% Registrando retiro de bicicleta %%%%%
 
@@ -987,8 +991,8 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y asociaci
 \diagramav{da-devolucion-bicicleta}
 
 
-\subsection{Penalizaciones} \label{sec:da-penalizaciones}
-
+\subsection{Penalizaciones} 
+\label{sec:da-penalizaciones}
 \diagramav{da-penalizaciones}
 
 Este diagrama describe la asignación de penalizaciones ante la devolución de una bicicleta. Las reglas de penalización son las siguientes:
@@ -1011,9 +1015,10 @@ Cabe aclarar que estas no son todas las penalizaciones posibles, sino que son ú
 
 
 \subsection{Pago de multas}
-
+\label{sec:da-pago-de-multas}
 \diagramav{da-pago-de-multas}
 
+En el diagrama, se observa la utilización de dos CU, \textbf{Consultando monto a pagar de un DNI} y \textbf{Registrando pago de multa}. Las acciones y eventos que ocurren desde el inicio del DA hasta la acción \textit{Decide si quiere realizar el pago} corresponden al primer CU mencionado, mientras que las actividades siguientes, si decide realizar el pago, corresponden al segundo CU mencionado.
 
 \subsection{Empresa de transporte: retiro de bicicletas}
 \label{sec:da-transporte-retiro}
